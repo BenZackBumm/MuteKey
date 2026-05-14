@@ -1,0 +1,425 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0433927A388D32CF2B2F9651 /* ZackMuteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA3B5FB9C9D9D2575138DD /* ZackMuteApp.swift */; };
+		0532AFE690C21DFB029408F7 /* StatusMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD6467D54B086E3A7D7608 /* StatusMenuView.swift */; };
+		05F64FD70E076423DAB195B1 /* TeamsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9560086A15272B67EA9BA937 /* TeamsConnector.swift */; };
+		16D7A5F52C89877EC9E8AD73 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B98FB6BAD58A276208DB3F /* HotkeyManager.swift */; };
+		24AD278B784EA8A3AB8E824D /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DAA5BBCED44A3148C98F4B /* MenuBarController.swift */; };
+		40041920753CBF9FB3F70F30 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BB248EF48DE87B2E46803 /* main.swift */; };
+		6663DA965E2B1A6BA21FBC33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B2684C5B6B19C2BC48C0CA /* Assets.xcassets */; };
+		6D31D45C46FE94D152BC1E41 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D86C65F04BCFA4CC1EC65E /* SettingsWindowController.swift */; };
+		7BAC6C64D8686C40F0419E7C /* TeamsMuteAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32CB7F81397EE9CD22B85C /* TeamsMuteAction.swift */; };
+		AE391E624338FADCC941FBB3 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = D7CBA62EC9009741827DCC34 /* KeyboardShortcuts */; };
+		D536EDC9E79F748887225F57 /* MeetingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3313D8D7444F8FE4F0714416 /* MeetingState.swift */; };
+		D97C0FE66D0DF08C3F123AEA /* TeamsMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884CC1E2E570DC39AAC1A348 /* TeamsMessages.swift */; };
+		E59DEDA4AA9DD53315C51872 /* TeamsStatePoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEEC946BC41858AA6AC74ED /* TeamsStatePoller.swift */; };
+		EC6417203F231D15684D575D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD65DE54A74E2408B639CE89 /* SettingsView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		13B2684C5B6B19C2BC48C0CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2E43BA3DDB4F73614C79EFC5 /* ZackMute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZackMute.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3313D8D7444F8FE4F0714416 /* MeetingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingState.swift; sourceTree = "<group>"; };
+		334BB248EF48DE87B2E46803 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		37D86C65F04BCFA4CC1EC65E /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
+		5C51CE94E5307EB7E6118DCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5EEEC946BC41858AA6AC74ED /* TeamsStatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsStatePoller.swift; sourceTree = "<group>"; };
+		68B98FB6BAD58A276208DB3F /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
+		84DA3B5FB9C9D9D2575138DD /* ZackMuteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZackMuteApp.swift; sourceTree = "<group>"; };
+		884CC1E2E570DC39AAC1A348 /* TeamsMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsMessages.swift; sourceTree = "<group>"; };
+		89DAA5BBCED44A3148C98F4B /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
+		9560086A15272B67EA9BA937 /* TeamsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsConnector.swift; sourceTree = "<group>"; };
+		AD65DE54A74E2408B639CE89 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BDFD6467D54B086E3A7D7608 /* StatusMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuView.swift; sourceTree = "<group>"; };
+		CD69489F45BD1B19EF82F4B4 /* ZackMute.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZackMute.entitlements; sourceTree = "<group>"; };
+		EE32CB7F81397EE9CD22B85C /* TeamsMuteAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsMuteAction.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F572C0A0C9A87463E9F2B04F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE391E624338FADCC941FBB3 /* KeyboardShortcuts in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		462C8C4C295D05172DAF34CE /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				89DAA5BBCED44A3148C98F4B /* MenuBarController.swift */,
+				BDFD6467D54B086E3A7D7608 /* StatusMenuView.swift */,
+			);
+			path = MenuBar;
+			sourceTree = "<group>";
+		};
+		5F752E599170E563DBC19A34 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E43BA3DDB4F73614C79EFC5 /* ZackMute.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5FB891310D35606C8D719AD9 /* Hotkey */ = {
+			isa = PBXGroup;
+			children = (
+				68B98FB6BAD58A276208DB3F /* HotkeyManager.swift */,
+			);
+			path = Hotkey;
+			sourceTree = "<group>";
+		};
+		72CD01E18202DBE7A6FA633A /* Teams */ = {
+			isa = PBXGroup;
+			children = (
+				3313D8D7444F8FE4F0714416 /* MeetingState.swift */,
+				9560086A15272B67EA9BA937 /* TeamsConnector.swift */,
+				884CC1E2E570DC39AAC1A348 /* TeamsMessages.swift */,
+				EE32CB7F81397EE9CD22B85C /* TeamsMuteAction.swift */,
+				5EEEC946BC41858AA6AC74ED /* TeamsStatePoller.swift */,
+			);
+			path = Teams;
+			sourceTree = "<group>";
+		};
+		8E9F14A96F8462A1D1852DE4 /* ZackMute */ = {
+			isa = PBXGroup;
+			children = (
+				13B2684C5B6B19C2BC48C0CA /* Assets.xcassets */,
+				5C51CE94E5307EB7E6118DCB /* Info.plist */,
+				334BB248EF48DE87B2E46803 /* main.swift */,
+				CD69489F45BD1B19EF82F4B4 /* ZackMute.entitlements */,
+				84DA3B5FB9C9D9D2575138DD /* ZackMuteApp.swift */,
+				5FB891310D35606C8D719AD9 /* Hotkey */,
+				462C8C4C295D05172DAF34CE /* MenuBar */,
+				C064C2711F1ECB90BA86A029 /* Settings */,
+				72CD01E18202DBE7A6FA633A /* Teams */,
+			);
+			path = ZackMute;
+			sourceTree = "<group>";
+		};
+		C064C2711F1ECB90BA86A029 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AD65DE54A74E2408B639CE89 /* SettingsView.swift */,
+				37D86C65F04BCFA4CC1EC65E /* SettingsWindowController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		CFF8E79BE04C82B20311F2E7 = {
+			isa = PBXGroup;
+			children = (
+				8E9F14A96F8462A1D1852DE4 /* ZackMute */,
+				5F752E599170E563DBC19A34 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0908E8C454EB0A05BC0C67C3 /* ZackMute */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52165F1497C1C332CD016A3F /* Build configuration list for PBXNativeTarget "ZackMute" */;
+			buildPhases = (
+				95D1719114DA4D66D84AE756 /* Sources */,
+				607109B31559962D21DFC913 /* Resources */,
+				F572C0A0C9A87463E9F2B04F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZackMute;
+			packageProductDependencies = (
+				D7CBA62EC9009741827DCC34 /* KeyboardShortcuts */,
+			);
+			productName = ZackMute;
+			productReference = 2E43BA3DDB4F73614C79EFC5 /* ZackMute.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D80B434C30DFB8BC37313B4E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					0908E8C454EB0A05BC0C67C3 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = AF657BC6C31D257CFBB00CDD /* Build configuration list for PBXProject "ZackMute" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CFF8E79BE04C82B20311F2E7;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				267F82DDB26A464BC64F057C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 5F752E599170E563DBC19A34 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0908E8C454EB0A05BC0C67C3 /* ZackMute */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		607109B31559962D21DFC913 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6663DA965E2B1A6BA21FBC33 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		95D1719114DA4D66D84AE756 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16D7A5F52C89877EC9E8AD73 /* HotkeyManager.swift in Sources */,
+				D536EDC9E79F748887225F57 /* MeetingState.swift in Sources */,
+				24AD278B784EA8A3AB8E824D /* MenuBarController.swift in Sources */,
+				EC6417203F231D15684D575D /* SettingsView.swift in Sources */,
+				6D31D45C46FE94D152BC1E41 /* SettingsWindowController.swift in Sources */,
+				0532AFE690C21DFB029408F7 /* StatusMenuView.swift in Sources */,
+				05F64FD70E076423DAB195B1 /* TeamsConnector.swift in Sources */,
+				D97C0FE66D0DF08C3F123AEA /* TeamsMessages.swift in Sources */,
+				7BAC6C64D8686C40F0419E7C /* TeamsMuteAction.swift in Sources */,
+				E59DEDA4AA9DD53315C51872 /* TeamsStatePoller.swift in Sources */,
+				0433927A388D32CF2B2F9651 /* ZackMuteApp.swift in Sources */,
+				40041920753CBF9FB3F70F30 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0C4AB4A046A9363707AC1005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		1A892F36BBEFC002FB019F28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		47C1743A41EDE0D4B12628D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ZackMute/ZackMute.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ZackMute/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.benkrammer.ZackMute;
+				PRODUCT_NAME = ZackMute;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		663FD759B34D75DC8511FE61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ZackMute/ZackMute.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ZackMute/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.benkrammer.ZackMute;
+				PRODUCT_NAME = ZackMute;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		52165F1497C1C332CD016A3F /* Build configuration list for PBXNativeTarget "ZackMute" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47C1743A41EDE0D4B12628D8 /* Debug */,
+				663FD759B34D75DC8511FE61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AF657BC6C31D257CFBB00CDD /* Build configuration list for PBXProject "ZackMute" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0C4AB4A046A9363707AC1005 /* Debug */,
+				1A892F36BBEFC002FB019F28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		267F82DDB26A464BC64F057C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D7CBA62EC9009741827DCC34 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 267F82DDB26A464BC64F057C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = D80B434C30DFB8BC37313B4E /* Project object */;
+}
