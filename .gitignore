@@ -13,6 +13,3 @@ DerivedData/
 
 # macOS
 .DS_Store
-
-# Exported icon folders
-AppIcon/
