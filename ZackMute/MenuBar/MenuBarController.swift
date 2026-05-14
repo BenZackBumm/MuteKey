@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import KeyboardShortcuts
 
 @MainActor
 final class MenuBarController {
@@ -116,6 +117,7 @@ final class MenuBarController {
             muteMenuItem?.title = "Mikrofon stumm"
             muteMenuItem?.image = menuIcon("mic.slash.fill")
         }
+        applyShortcut(.toggleMute, to: muteMenuItem)
 
         cameraMenuItem?.isEnabled = teamsRunning
         if meetingState.isCameraOn {
@@ -125,6 +127,39 @@ final class MenuBarController {
             cameraMenuItem?.title = "Webcam an"
             cameraMenuItem?.image = menuIcon("video")
         }
+        applyShortcut(.toggleCamera, to: cameraMenuItem)
+    }
+
+    private func applyShortcut(_ name: KeyboardShortcuts.Name, to item: NSMenuItem?) {
+        guard let item else { return }
+        guard let shortcut = KeyboardShortcuts.getShortcut(for: name) else {
+            item.keyEquivalent = ""
+            item.keyEquivalentModifierMask = []
+            return
+        }
+        if let char = functionKeyChar(for: shortcut.key) {
+            item.keyEquivalent = char
+            item.keyEquivalentModifierMask = shortcut.modifiers
+        } else {
+            item.keyEquivalent = ""
+            item.keyEquivalentModifierMask = []
+        }
+    }
+
+    // Maps CGKeyCode of F-keys to the NSMenuItem unicode characters (NSFxxFunctionKey).
+    private func functionKeyChar(for key: KeyboardShortcuts.Key?) -> String? {
+        guard let key else { return nil }
+        // CGKeyCodes for F1–F20 mapped to unicode private-use scalars 0xF704–0xF717
+        let table: [CGKeyCode: UInt32] = [
+            CGKeyCode(122): 0xF704, CGKeyCode(120): 0xF705, CGKeyCode(99): 0xF706, CGKeyCode(118): 0xF707,
+            CGKeyCode(96):  0xF708, CGKeyCode(97):  0xF709, CGKeyCode(98): 0xF70A, CGKeyCode(100): 0xF70B,
+            CGKeyCode(101): 0xF70C, CGKeyCode(109): 0xF70D, CGKeyCode(103): 0xF70E, CGKeyCode(111): 0xF70F,
+            CGKeyCode(105): 0xF710, CGKeyCode(107): 0xF711, CGKeyCode(113): 0xF712, CGKeyCode(106): 0xF713,
+            CGKeyCode(64):  0xF714, CGKeyCode(79):  0xF715, CGKeyCode(80):  0xF716, CGKeyCode(90):  0xF717,
+        ]
+        guard let scalar = table[CGKeyCode(key.rawValue)],
+              let unicodeScalar = Unicode.Scalar(scalar) else { return nil }
+        return String(unicodeScalar)
     }
 
     private func menuIcon(_ symbolName: String) -> NSImage? {
