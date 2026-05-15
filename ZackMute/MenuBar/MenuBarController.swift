@@ -174,11 +174,13 @@ final class MenuBarController {
         guard let button = statusItem.button else { return }
 
         let config = NSImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-        let inMeeting = meetingState.isInMeeting
+        let inMeeting = meetingState.isInMeeting || meetingState.isInSlackHuddle
+        let isMuted = (meetingState.isInMeeting && meetingState.isMuted)
+                   || (meetingState.isInSlackHuddle && meetingState.isSlackMuted)
 
         if inMeeting {
-            let imageName = meetingState.isMuted ? "mic.slash.fill" : "mic.fill"
-            let color: NSColor = meetingState.isMuted ? .systemRed : .systemGreen
+            let imageName = isMuted ? "mic.slash.fill" : "mic.fill"
+            let color: NSColor = isMuted ? .systemRed : .systemGreen
             if let image = NSImage(systemSymbolName: imageName, accessibilityDescription: nil)?
                 .withSymbolConfiguration(config) {
                 button.image = tinted(image, with: color)

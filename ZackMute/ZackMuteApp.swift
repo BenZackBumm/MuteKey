@@ -10,6 +10,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let teamsConnector: TeamsConnector
     private var menuBarController: MenuBarController?
     private var statePoller: TeamsStatePoller?
+    private var slackPoller: SlackStatePoller?
 
     override init() {
         teamsConnector = TeamsConnector(state: meetingState)
@@ -21,9 +22,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             meetingState: meetingState,
             teamsConnector: teamsConnector
         )
-        HotkeyManager.setup(teamsConnector: teamsConnector)
+        HotkeyManager.setup(teamsConnector: teamsConnector, meetingState: meetingState)
         teamsConnector.connect()
         statePoller = TeamsStatePoller(state: meetingState)
         statePoller?.start()
+        slackPoller = SlackStatePoller(state: meetingState)
+        slackPoller?.start()
     }
 }

@@ -6,12 +6,28 @@ extension KeyboardShortcuts.Name {
 }
 
 enum HotkeyManager {
-    static func setup(teamsConnector: TeamsConnector) {
+    static func setup(teamsConnector: TeamsConnector, meetingState: MeetingState) {
         KeyboardShortcuts.onKeyDown(for: .toggleMute) {
-            Task { @MainActor in teamsConnector.toggleMute() }
+            Task { @MainActor in
+                if meetingState.isInSlackHuddle {
+                    SlackMuteAction.toggle()
+                    meetingState.isSlackMuted.toggle()
+                }
+                if meetingState.isInMeeting {
+                    teamsConnector.toggleMute()
+                }
+            }
         }
         KeyboardShortcuts.onKeyDown(for: .toggleCamera) {
-            Task { @MainActor in teamsConnector.toggleCamera() }
+            Task { @MainActor in
+                if meetingState.isInSlackHuddle {
+                    SlackMuteAction.toggleCamera()
+                    meetingState.isSlackCameraOn.toggle()
+                }
+                if meetingState.isInMeeting {
+                    teamsConnector.toggleCamera()
+                }
+            }
         }
     }
 }

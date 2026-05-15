@@ -36,6 +36,7 @@ targets:
         CFBundleVersion: "1"
         CFBundleShortVersionString: "1.0"
         NSPrincipalClass: NSApplication
+        LSApplicationCategoryType: public.app-category.utilities
         LSUIElement: true
         NSHighResolutionCapable: true
         LSMinimumSystemVersion: "15.0"

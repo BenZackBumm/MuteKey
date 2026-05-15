@@ -13,11 +13,13 @@
 		16D7A5F52C89877EC9E8AD73 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B98FB6BAD58A276208DB3F /* HotkeyManager.swift */; };
 		24AD278B784EA8A3AB8E824D /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DAA5BBCED44A3148C98F4B /* MenuBarController.swift */; };
 		40041920753CBF9FB3F70F30 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BB248EF48DE87B2E46803 /* main.swift */; };
+		53BA67D79131F549AEF1E2EB /* SlackStatePoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E39BCC9215EDC0181B7404 /* SlackStatePoller.swift */; };
 		6663DA965E2B1A6BA21FBC33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B2684C5B6B19C2BC48C0CA /* Assets.xcassets */; };
 		6D31D45C46FE94D152BC1E41 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D86C65F04BCFA4CC1EC65E /* SettingsWindowController.swift */; };
 		7BAC6C64D8686C40F0419E7C /* TeamsMuteAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32CB7F81397EE9CD22B85C /* TeamsMuteAction.swift */; };
 		AE391E624338FADCC941FBB3 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = D7CBA62EC9009741827DCC34 /* KeyboardShortcuts */; };
 		D536EDC9E79F748887225F57 /* MeetingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3313D8D7444F8FE4F0714416 /* MeetingState.swift */; };
+		D58BE28B6A767EB2D68A01CE /* SlackMuteAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD8BD36D3A5AABAFE69646E /* SlackMuteAction.swift */; };
 		D97C0FE66D0DF08C3F123AEA /* TeamsMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884CC1E2E570DC39AAC1A348 /* TeamsMessages.swift */; };
 		E59DEDA4AA9DD53315C51872 /* TeamsStatePoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEEC946BC41858AA6AC74ED /* TeamsStatePoller.swift */; };
 		EC6417203F231D15684D575D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD65DE54A74E2408B639CE89 /* SettingsView.swift */; };
@@ -32,10 +34,12 @@
 		5C51CE94E5307EB7E6118DCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5EEEC946BC41858AA6AC74ED /* TeamsStatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsStatePoller.swift; sourceTree = "<group>"; };
 		68B98FB6BAD58A276208DB3F /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
+		72E39BCC9215EDC0181B7404 /* SlackStatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlackStatePoller.swift; sourceTree = "<group>"; };
 		84DA3B5FB9C9D9D2575138DD /* ZackMuteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZackMuteApp.swift; sourceTree = "<group>"; };
 		884CC1E2E570DC39AAC1A348 /* TeamsMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsMessages.swift; sourceTree = "<group>"; };
 		89DAA5BBCED44A3148C98F4B /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
 		9560086A15272B67EA9BA937 /* TeamsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsConnector.swift; sourceTree = "<group>"; };
+		ABD8BD36D3A5AABAFE69646E /* SlackMuteAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlackMuteAction.swift; sourceTree = "<group>"; };
 		AD65DE54A74E2408B639CE89 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		BDFD6467D54B086E3A7D7608 /* StatusMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuView.swift; sourceTree = "<group>"; };
 		CD69489F45BD1B19EF82F4B4 /* ZackMute.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZackMute.entitlements; sourceTree = "<group>"; };
@@ -61,6 +65,15 @@
 				BDFD6467D54B086E3A7D7608 /* StatusMenuView.swift */,
 			);
 			path = MenuBar;
+			sourceTree = "<group>";
+		};
+		5D574978DCFCE22737841C8C /* Slack */ = {
+			isa = PBXGroup;
+			children = (
+				ABD8BD36D3A5AABAFE69646E /* SlackMuteAction.swift */,
+				72E39BCC9215EDC0181B7404 /* SlackStatePoller.swift */,
+			);
+			path = Slack;
 			sourceTree = "<group>";
 		};
 		5F752E599170E563DBC19A34 /* Products */ = {
@@ -102,6 +115,7 @@
 				5FB891310D35606C8D719AD9 /* Hotkey */,
 				462C8C4C295D05172DAF34CE /* MenuBar */,
 				C064C2711F1ECB90BA86A029 /* Settings */,
+				5D574978DCFCE22737841C8C /* Slack */,
 				72CD01E18202DBE7A6FA633A /* Teams */,
 			);
 			path = ZackMute;
@@ -205,6 +219,8 @@
 				24AD278B784EA8A3AB8E824D /* MenuBarController.swift in Sources */,
 				EC6417203F231D15684D575D /* SettingsView.swift in Sources */,
 				6D31D45C46FE94D152BC1E41 /* SettingsWindowController.swift in Sources */,
+				D58BE28B6A767EB2D68A01CE /* SlackMuteAction.swift in Sources */,
+				53BA67D79131F549AEF1E2EB /* SlackStatePoller.swift in Sources */,
 				0532AFE690C21DFB029408F7 /* StatusMenuView.swift in Sources */,
 				05F64FD70E076423DAB195B1 /* TeamsConnector.swift in Sources */,
 				D97C0FE66D0DF08C3F123AEA /* TeamsMessages.swift in Sources */,

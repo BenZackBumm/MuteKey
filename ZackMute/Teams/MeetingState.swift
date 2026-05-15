@@ -9,9 +9,16 @@ final class MeetingState: ObservableObject {
     @Published var canToggleMute = false
     @Published var canToggleVideo = false
 
+    @Published var isInSlackHuddle = false
+    @Published var isSlackMuted = false
+    @Published var isSlackCameraOn = false
+
     var statusDescription: String {
-        guard isConnectedToTeams else { return "Teams nicht verbunden" }
-        guard isInMeeting else { return "Kein aktives Meeting" }
-        return isMuted ? "Stummgeschaltet" : "Mikrofon aktiv"
+        let inTeams = isInMeeting
+        let inSlack = isInSlackHuddle
+        if inTeams && inSlack { return "In Meeting & Huddle" }
+        if inSlack { return "In Huddle (Slack)" }
+        if inTeams { return isMuted ? "Stummgeschaltet" : "Mikrofon aktiv" }
+        return "Kein aktives Meeting"
     }
 }
