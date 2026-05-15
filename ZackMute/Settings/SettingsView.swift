@@ -16,7 +16,7 @@ struct SettingsView: View {
                         KeyboardShortcuts.Recorder("", name: .toggleMute)
                     }
                     HStack {
-                        Image(systemName: "video.slash").frame(width: 16)
+                        Image(systemName: "video.fill").frame(width: 16)
                         Text("Webcam")
                         Spacer()
                         KeyboardShortcuts.Recorder("", name: .toggleCamera)
@@ -42,33 +42,82 @@ struct SettingsView: View {
                 }
             }
 
-            settingsSection("Microsoft Teams") {
+            settingsSection("Verbindungen") {
                 VStack(alignment: .leading, spacing: 10) {
                     HStack(spacing: 8) {
                         Circle()
-                            .fill(meetingState.isConnectedToTeams ? Color.green : Color.secondary)
+                            .fill(slackStatusColor)
                             .frame(width: 8, height: 8)
-                        Text(meetingState.isConnectedToTeams ? "Verbunden" : "Nicht verbunden")
+                        Text("Slack")
+                            .fontWeight(.medium)
+                        Spacer()
+                        Text(slackStatusText)
+                            .foregroundStyle(slackStatusColor == .secondary ? AnyShapeStyle(.secondary) : AnyShapeStyle(slackStatusColor))
                     }
 
-                    if !teamsConnector.hasToken {
-                        Text("Einmaliges Setup: Teams → Einstellungen → Datenschutz → \"Third-party app API\" aktivieren. Beim nächsten Meeting-Start verbindet ZackMute automatisch.")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
+                    Divider()
 
-                    if teamsConnector.hasToken {
-                        Button("Verbindung zurücksetzen") {
-                            teamsConnector.clearToken()
+                    VStack(alignment: .leading, spacing: 6) {
+                        HStack(spacing: 8) {
+                            Circle()
+                                .fill(teamsStatusColor)
+                                .frame(width: 8, height: 8)
+                            Text("Microsoft Teams")
+                                .fontWeight(.medium)
+                            Spacer()
+                            Text(teamsStatusText)
+                                .foregroundStyle(teamsStatusColor == .secondary ? AnyShapeStyle(.secondary) : AnyShapeStyle(teamsStatusColor))
                         }
-                        .foregroundStyle(.red)
+                        if teamsConnector.hasToken {
+                            Button("Zurücksetzen") {
+                                teamsConnector.clearToken()
+                            }
+                            .foregroundStyle(.red)
+                            .controlSize(.small)
+                        }
+                        if !teamsConnector.hasToken {
+                            Text("Einmaliges Setup: Teams → Einstellungen → Datenschutz → \"Third-party app API\" aktivieren. Beim nächsten Meeting-Start verbindet ZackMute automatisch.")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
                     }
+
+                    Divider()
+
+                    Text("Hinweis: Sind Slack-Huddle und Teams-Meeting gleichzeitig aktiv, können Shortcuts unerwartet reagieren.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
         }
         .padding(20)
         .frame(width: 400)
+    }
+
+    // MARK: - Status helpers
+
+    private var slackStatusColor: Color {
+        if !meetingState.isSlackRunning { return .secondary }
+        return .green
+    }
+
+    private var slackStatusText: String {
+        if !meetingState.isSlackRunning { return "Nicht gestartet" }
+        return meetingState.isInSlackHuddle ? "Huddle aktiv" : "Verbunden"
+    }
+
+    private var teamsStatusColor: Color {
+        if !meetingState.isTeamsRunning { return .secondary }
+        if !meetingState.isConnectedToTeams { return .orange }
+        return .green
+    }
+
+    private var teamsStatusText: String {
+        if !meetingState.isTeamsRunning { return "Nicht gestartet" }
+        if !meetingState.isConnectedToTeams { return "Nicht verbunden" }
+        return meetingState.isInMeeting ? "In Meeting" : "Verbunden"
     }
 
     @ViewBuilder

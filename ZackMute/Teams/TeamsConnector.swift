@@ -48,7 +48,16 @@ final class TeamsConnector: ObservableObject {
 
     func clearToken() {
         deleteToken()
-        disconnect()
+        webSocketTask?.cancel(with: .goingAway, reason: nil)
+        webSocketTask = nil
+        state.isConnectedToTeams = false
+        state.isInMeeting = false
+        state.isMuted = false
+        state.canToggleMute = false
+        state.canToggleVideo = false
+        // Keep reconnecting so Teams can send a new token on next meeting start
+        shouldReconnect = true
+        openConnection()
     }
 
     var hasToken: Bool { loadToken() != nil }

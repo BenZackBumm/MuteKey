@@ -1,7 +1,9 @@
 import AppKit
 import CoreAudio
+import Darwin
 
-// Polls whether Slack is actively using microphone input to detect Huddle activity.
+// Polls whether any Slack process (including helpers) is actively using microphone input.
+// Slack uses "Slack Helper (Renderer)" for WebRTC audio, not the main app PID.
 @MainActor
 final class SlackStatePoller {
     private weak var state: MeetingState?
@@ -25,6 +27,10 @@ final class SlackStatePoller {
 
     private func poll() {
         guard let state else { return }
+        let slackRunning = SlackMuteAction.isSlackRunning
+        if state.isSlackRunning != slackRunning {
+            state.isSlackRunning = slackRunning
+        }
         let inHuddle = slackIsUsingMicrophone()
         if state.isInSlackHuddle != inHuddle {
             state.isInSlackHuddle = inHuddle
@@ -36,8 +42,7 @@ final class SlackStatePoller {
     }
 
     private func slackIsUsingMicrophone() -> Bool {
-        guard let slack = SlackMuteAction.findSlackApp() else { return false }
-        let pid = slack.processIdentifier
+        guard SlackMuteAction.isSlackRunning else { return false }
 
         var size: UInt32 = 0
         var address = AudioObjectPropertyAddress(
@@ -64,8 +69,10 @@ final class SlackStatePoller {
                 mScope: kAudioObjectPropertyScopeGlobal,
                 mElement: kAudioObjectPropertyElementMain
             )
-            guard AudioObjectGetPropertyData(objectID, &pidAddr, 0, nil, &pidSize, &pidValue) == noErr,
-                  pidValue == pid else { continue }
+            guard AudioObjectGetPropertyData(objectID, &pidAddr, 0, nil, &pidSize, &pidValue) == noErr
+            else { continue }
+
+            guard isSlackProcess(pidValue) else { continue }
 
             var isRunning: UInt32 = 0
             var runningSize = UInt32(MemoryLayout<UInt32>.size)
@@ -80,5 +87,12 @@ final class SlackStatePoller {
             }
         }
         return false
+    }
+
+    // Check if a PID belongs to any Slack process (main app or any helper/renderer).
+    private func isSlackProcess(_ pid: pid_t) -> Bool {
+        var name = [CChar](repeating: 0, count: 256)
+        proc_name(pid, &name, UInt32(name.count))
+        return String(cString: name).lowercased().contains("slack")
     }
 }

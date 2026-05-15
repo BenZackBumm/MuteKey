@@ -26,14 +26,15 @@ final class TeamsStatePoller {
 
     private func poll() {
         guard let state else { return }
+        let teamsRunning = TeamsMuteAction.isTeamsRunning
+        if state.isTeamsRunning != teamsRunning {
+            state.isTeamsRunning = teamsRunning
+        }
         let inMeeting = teamsIsUsingMicrophone()
-        // Only update if WebSocket isn't providing real state
+        // Only update meeting state if WebSocket isn't providing real state
         if !state.canToggleMute {
             if state.isInMeeting != inMeeting {
                 state.isInMeeting = inMeeting
-            }
-            if !inMeeting {
-                state.isConnectedToTeams = TeamsMuteAction.isTeamsRunning
             }
         }
     }

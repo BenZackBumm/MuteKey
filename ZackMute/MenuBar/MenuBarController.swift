@@ -51,7 +51,7 @@ final class MenuBarController {
             keyEquivalent: ""
         )
         cameraItem.target = self
-        cameraItem.image = menuIcon("video")
+        cameraItem.image = menuIcon("video.fill")
         menu.addItem(cameraItem)
         self.cameraMenuItem = cameraItem
 
@@ -122,10 +122,10 @@ final class MenuBarController {
         cameraMenuItem?.isEnabled = teamsRunning
         if meetingState.isCameraOn {
             cameraMenuItem?.title = "Webcam aus"
-            cameraMenuItem?.image = menuIcon("video.slash")
+            cameraMenuItem?.image = menuIcon("video.slash.fill")
         } else {
             cameraMenuItem?.title = "Webcam an"
-            cameraMenuItem?.image = menuIcon("video")
+            cameraMenuItem?.image = menuIcon("video.fill")
         }
         applyShortcut(.toggleCamera, to: cameraMenuItem)
     }
@@ -173,27 +173,51 @@ final class MenuBarController {
     private func updateIcon() {
         guard let button = statusItem.button else { return }
 
-        let config = NSImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-        let inMeeting = meetingState.isInMeeting || meetingState.isInSlackHuddle
-        let isMuted = (meetingState.isInMeeting && meetingState.isMuted)
-                   || (meetingState.isInSlackHuddle && meetingState.isSlackMuted)
+        let config = NSImage.SymbolConfiguration(pointSize: 13, weight: .medium)
 
-        if inMeeting {
-            let imageName = isMuted ? "mic.slash.fill" : "mic.fill"
-            let color: NSColor = isMuted ? .systemRed : .systemGreen
-            if let image = NSImage(systemSymbolName: imageName, accessibilityDescription: nil)?
-                .withSymbolConfiguration(config) {
-                button.image = tinted(image, with: color)
-            }
+        let isInCall = meetingState.isInMeeting || meetingState.isInSlackHuddle
+        let isMuted  = (meetingState.isInMeeting && meetingState.isMuted)
+                    || (meetingState.isInSlackHuddle && meetingState.isSlackMuted)
+        let isCameraOn = (meetingState.isInMeeting && meetingState.isCameraOn)
+                      || (meetingState.isInSlackHuddle && meetingState.isSlackCameraOn)
+
+        let micName = isMuted    ? "mic.slash.fill" : "mic.fill"
+        let camName = isCameraOn ? "video.fill"      : "video.slash.fill"
+
+        guard let micBase = NSImage(systemSymbolName: micName, accessibilityDescription: nil)?
+                  .withSymbolConfiguration(config),
+              let camBase = NSImage(systemSymbolName: camName, accessibilityDescription: nil)?
+                  .withSymbolConfiguration(config)
+        else { return }
+
+        if isInCall {
+            let micImg = tinted(micBase, with: isMuted    ? .systemRed   : .systemGreen)
+            let camImg = tinted(camBase, with: isCameraOn ? .systemGreen : .systemRed)
+            button.image = composed(micImg, camImg, isTemplate: false)
         } else {
-            // Template image: macOS renders it in the standard menu bar color automatically
-            if let image = NSImage(systemSymbolName: "mic.fill", accessibilityDescription: nil)?
-                .withSymbolConfiguration(config) {
-                image.isTemplate = true
-                button.image = image
-            }
+            button.image = composed(micBase, camBase, isTemplate: true)
         }
+
         button.toolTip = meetingState.statusDescription
+    }
+
+    private func composed(_ left: NSImage, _ right: NSImage, isTemplate: Bool) -> NSImage {
+        let spacing: CGFloat = 4
+        let width  = left.size.width + spacing + right.size.width
+        let height = max(left.size.height, right.size.height)
+        let result = NSImage(size: CGSize(width: width, height: height), flipped: false) { _ in
+            left.draw(in: CGRect(x: 0,
+                                 y: (height - left.size.height) / 2,
+                                 width: left.size.width,
+                                 height: left.size.height))
+            right.draw(in: CGRect(x: left.size.width + spacing,
+                                  y: (height - right.size.height) / 2,
+                                  width: right.size.width,
+                                  height: right.size.height))
+            return true
+        }
+        result.isTemplate = isTemplate
+        return result
     }
 
     private func tinted(_ image: NSImage, with color: NSColor) -> NSImage {
