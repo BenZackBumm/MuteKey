@@ -1,5 +1,6 @@
 import SwiftUI
 import KeyboardShortcuts
+import ServiceManagement
 
 struct SettingsView: View {
     @EnvironmentObject var meetingState: MeetingState
@@ -7,6 +8,20 @@ struct SettingsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
+            settingsSection("Allgemein") {
+                HStack {
+                    Text("Beim Login automatisch starten")
+                    Spacer()
+                    Toggle("", isOn: Binding(
+                        get: { SMAppService.mainApp.status == .enabled },
+                        set: { setLaunchAtLogin($0) }
+                    ))
+                    .toggleStyle(.switch)
+                    .controlSize(.small)
+                    .labelsHidden()
+                }
+            }
+
             settingsSection("Tastaturkürzel") {
                 VStack(spacing: 8) {
                     HStack {
@@ -94,6 +109,20 @@ struct SettingsView: View {
         }
         .padding(20)
         .frame(width: 400)
+    }
+
+    // MARK: - Launch at Login
+
+    private func setLaunchAtLogin(_ enabled: Bool) {
+        do {
+            if enabled {
+                try SMAppService.mainApp.register()
+            } else {
+                try SMAppService.mainApp.unregister()
+            }
+        } catch {
+            print("[ZackMute] Launch at login error: \(error)")
+        }
     }
 
     // MARK: - Status helpers

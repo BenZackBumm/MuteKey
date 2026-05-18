@@ -173,50 +173,75 @@ final class MenuBarController {
     private func updateIcon() {
         guard let button = statusItem.button else { return }
 
-        let config = NSImage.SymbolConfiguration(pointSize: 13, weight: .medium)
-
-        let isInCall = meetingState.isInMeeting || meetingState.isInSlackHuddle
-        let isMuted  = (meetingState.isInMeeting && meetingState.isMuted)
-                    || (meetingState.isInSlackHuddle && meetingState.isSlackMuted)
+        let isInCall   = meetingState.isInMeeting || meetingState.isInSlackHuddle
+        let isMuted    = (meetingState.isInMeeting && meetingState.isMuted)
+                      || (meetingState.isInSlackHuddle && meetingState.isSlackMuted)
         let isCameraOn = (meetingState.isInMeeting && meetingState.isCameraOn)
                       || (meetingState.isInSlackHuddle && meetingState.isSlackCameraOn)
 
-        let micName = isMuted    ? "mic.slash.fill" : "mic.fill"
-        let camName = isCameraOn ? "video.fill"      : "video.slash.fill"
-
-        guard let micBase = NSImage(systemSymbolName: micName, accessibilityDescription: nil)?
-                  .withSymbolConfiguration(config),
-              let camBase = NSImage(systemSymbolName: camName, accessibilityDescription: nil)?
-                  .withSymbolConfiguration(config)
-        else { return }
+        guard let apeBase = NSImage(named: "ape_menubar") else { return }
 
         if isInCall {
+            let symConfig = NSImage.SymbolConfiguration(pointSize: 13, weight: .medium)
+            let micName = isMuted    ? "mic.slash.fill" : "mic.fill"
+            let camName = isCameraOn ? "video.fill"      : "video.slash.fill"
+
+            guard let micBase = NSImage(systemSymbolName: micName, accessibilityDescription: nil)?
+                      .withSymbolConfiguration(symConfig),
+                  let camBase = NSImage(systemSymbolName: camName, accessibilityDescription: nil)?
+                      .withSymbolConfiguration(symConfig)
+            else { return }
+
+            let isDark = button.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+            let apeImg = tinted(scaled(apeBase, toHeight: micBase.size.height), with: isDark ? .white : .black)
             let micImg = tinted(micBase, with: isMuted    ? .systemRed   : .systemGreen)
             let camImg = tinted(camBase, with: isCameraOn ? .systemGreen : .systemRed)
-            button.image = composed(micImg, camImg, isTemplate: false)
+
+            button.image = composed(apeImg, micImg, camImg)
         } else {
-            button.image = composed(micBase, camBase, isTemplate: true)
+            // Idle: single template icon — auto-adapts to Dark/Light Mode and menubar tinting
+            let idle = NSImage(size: NSSize(width: 16, height: 16), flipped: false) { rect in
+                apeBase.draw(in: rect)
+                return true
+            }
+            idle.isTemplate = true
+            button.image = idle
         }
 
         button.toolTip = meetingState.statusDescription
     }
 
-    private func composed(_ left: NSImage, _ right: NSImage, isTemplate: Bool) -> NSImage {
+    /// Scale image proportionally to a target height.
+    private func scaled(_ image: NSImage, toHeight height: CGFloat) -> NSImage {
+        let scale = height / image.size.height
+        let newSize = NSSize(width: image.size.width * scale, height: height)
+        let result = NSImage(size: newSize, flipped: false) { rect in
+            image.draw(in: rect)
+            return true
+        }
+        return result
+    }
+
+    private func composed(_ left: NSImage, _ center: NSImage, _ right: NSImage) -> NSImage {
         let spacing: CGFloat = 4
-        let width  = left.size.width + spacing + right.size.width
-        let height = max(left.size.height, right.size.height)
+        let width  = left.size.width + spacing + center.size.width + spacing + right.size.width
+        let height = max(left.size.height, max(center.size.height, right.size.height))
         let result = NSImage(size: CGSize(width: width, height: height), flipped: false) { _ in
             left.draw(in: CGRect(x: 0,
                                  y: (height - left.size.height) / 2,
                                  width: left.size.width,
                                  height: left.size.height))
-            right.draw(in: CGRect(x: left.size.width + spacing,
+            center.draw(in: CGRect(x: left.size.width + spacing,
+                                   y: (height - center.size.height) / 2,
+                                   width: center.size.width,
+                                   height: center.size.height))
+            right.draw(in: CGRect(x: left.size.width + spacing + center.size.width + spacing,
                                   y: (height - right.size.height) / 2,
                                   width: right.size.width,
                                   height: right.size.height))
             return true
         }
-        result.isTemplate = isTemplate
+        result.isTemplate = false
         return result
     }
 
