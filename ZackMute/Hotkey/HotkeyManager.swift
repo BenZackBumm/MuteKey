@@ -30,7 +30,7 @@ enum HotkeyManager {
                 let teams  = meetingState.isInMeeting
                 let allOff = (!slack || !meetingState.isSlackCameraOn)
                           && (!teams || !meetingState.isCameraOn)
-                let target = !allOff  // turn on if all off, otherwise turn all off
+                let target = allOff  // turn on if all off, otherwise turn all off
 
                 if slack && meetingState.isSlackCameraOn != target {
                     SlackMuteAction.toggleCamera()

@@ -29,20 +29,24 @@ final class TeamsConnector: ObservableObject {
     }
 
     func toggleMute() {
-        TeamsMuteAction.toggle()
-        if !state.canToggleMute {
-            state.isMuted.toggle()
-        } else {
+        if state.canToggleMute {
+            // Enterprise Teams: WebSocket command only, no keyboard injection
             send(TeamsCommand.toggleMute(requestId: nextRequestId()))
+        } else {
+            // Personal Teams / fallback: keyboard injection + optimistic state
+            TeamsMuteAction.toggle()
+            state.isMuted.toggle()
         }
     }
 
     func toggleCamera() {
-        TeamsMuteAction.toggleCamera()
-        if !state.canToggleVideo {
-            state.isCameraOn.toggle()
-        } else {
+        if state.canToggleVideo {
+            // Enterprise Teams: WebSocket command only, no keyboard injection
             send(TeamsCommand(action: "toggle-video", parameters: [:], requestId: nextRequestId()))
+        } else {
+            // Personal Teams / fallback: keyboard injection + optimistic state
+            TeamsMuteAction.toggleCamera()
+            state.isCameraOn.toggle()
         }
     }
 
@@ -157,11 +161,22 @@ final class TeamsConnector: ObservableObject {
     // MARK: - Reconnect
 
     private func handleDisconnect() {
+        let wasConnected = state.isConnectedToTeams
         webSocketTask = nil
         state.isConnectedToTeams = false
-        state.isInMeeting = false
-        state.isMuted = false
         state.canToggleMute = false
+        state.canToggleVideo = false
+        // Only reset meeting state if we actually had a connection.
+        // If we were never connected (e.g. Personal Teams), let CoreAudio manage isInMeeting.
+        // Only clear meeting state on a deliberate disconnect (shouldReconnect == false).
+        // On unexpected drops we're about to reconnect; keeping state avoids the brief
+        // window where isInMeeting == false causes hotkey presses to silently no-op.
+        // TeamsStatePoller + the next WebSocket reconnect both correct state within ~2 s.
+        if wasConnected && !shouldReconnect {
+            state.isInMeeting = false
+            state.isMuted = false
+            state.isCameraOn = false
+        }
 
         guard shouldReconnect else { return }
 

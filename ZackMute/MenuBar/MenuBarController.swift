@@ -172,34 +172,28 @@ final class MenuBarController {
 
     private func updateIcon() {
         guard let button = statusItem.button else { return }
-
-        let isInCall   = meetingState.isInMeeting || meetingState.isInSlackHuddle
-        let isMuted    = (meetingState.isInMeeting && meetingState.isMuted)
-                      || (meetingState.isInSlackHuddle && meetingState.isSlackMuted)
-        let isCameraOn = (meetingState.isInMeeting && meetingState.isCameraOn)
-                      || (meetingState.isInSlackHuddle && meetingState.isSlackCameraOn)
-
         guard let apeBase = NSImage(named: "ape_menubar") else { return }
 
-        if isInCall {
-            let symConfig = NSImage.SymbolConfiguration(pointSize: 13, weight: .medium)
-            let micName = isMuted    ? "mic.slash.fill" : "mic.fill"
-            let camName = isCameraOn ? "video.fill"      : "video.slash.fill"
+        let isInCall      = meetingState.isInMeeting || meetingState.isInSlackHuddle
+        // Real status only when Enterprise Teams granted toggle permission via WebSocket.
+        // canToggleMute is only true when the Third-party API is active — not for Personal Teams.
+        let hasRealStatus = meetingState.isInMeeting && meetingState.canToggleMute
 
-            guard let micBase = NSImage(systemSymbolName: micName, accessibilityDescription: nil)?
-                      .withSymbolConfiguration(symConfig),
-                  let camBase = NSImage(systemSymbolName: camName, accessibilityDescription: nil)?
-                      .withSymbolConfiguration(symConfig)
-            else { return }
-
-            let isDark = button.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-            let apeImg = tinted(scaled(apeBase, toHeight: micBase.size.height), with: isDark ? .white : .black)
-            let micImg = tinted(micBase, with: isMuted    ? .systemRed   : .systemGreen)
-            let camImg = tinted(camBase, with: isCameraOn ? .systemGreen : .systemRed)
-
-            button.image = composed(apeImg, micImg, camImg)
+        if hasRealStatus {
+            // Enterprise Teams: show real mic/camera status via colored pills
+            let isMuted    = meetingState.isMuted
+            let isCameraOn = meetingState.isCameraOn
+            let micName    = isMuted    ? "mic.slash.fill" : "mic.fill"
+            let camName    = isCameraOn ? "video.fill"      : "video.slash.fill"
+            button.image = pillPair(
+                leftSymbol:  micName,  leftColor:  isMuted    ? .systemRed   : .systemGreen,
+                rightSymbol: camName,  rightColor: isCameraOn ? .systemGreen : .systemRed
+            )
+        } else if isInCall {
+            // Personal Teams or Slack: status unknown — ape + green "!"
+            button.image = activeCallIcon(apeBase: apeBase, button: button)
         } else {
-            // Idle: single template icon — auto-adapts to Dark/Light Mode and menubar tinting
+            // Idle: single template icon — auto-adapts to Dark/Light Mode
             let idle = NSImage(size: NSSize(width: 16, height: 16), flipped: false) { rect in
                 apeBase.draw(in: rect)
                 return true
@@ -211,42 +205,40 @@ final class MenuBarController {
         button.toolTip = meetingState.statusDescription
     }
 
-    /// Scale image proportionally to a target height.
-    private func scaled(_ image: NSImage, toHeight height: CGFloat) -> NSImage {
-        let scale = height / image.size.height
-        let newSize = NSSize(width: image.size.width * scale, height: height)
-        let result = NSImage(size: newSize, flipped: false) { rect in
-            image.draw(in: rect)
-            return true
-        }
-        return result
-    }
+    /// Ape icon + green "!" — used when in a call but real mic/camera status is unavailable.
+    private func activeCallIcon(apeBase: NSImage, button: NSStatusBarButton) -> NSImage {
+        let size: CGFloat = 16
+        let spacing: CGFloat = 3
+        let symConfig = NSImage.SymbolConfiguration(pointSize: size, weight: .medium)
 
-    private func composed(_ left: NSImage, _ center: NSImage, _ right: NSImage) -> NSImage {
-        let spacing: CGFloat = 4
-        let width  = left.size.width + spacing + center.size.width + spacing + right.size.width
-        let height = max(left.size.height, max(center.size.height, right.size.height))
-        let result = NSImage(size: CGSize(width: width, height: height), flipped: false) { _ in
-            left.draw(in: CGRect(x: 0,
-                                 y: (height - left.size.height) / 2,
-                                 width: left.size.width,
-                                 height: left.size.height))
-            center.draw(in: CGRect(x: left.size.width + spacing,
-                                   y: (height - center.size.height) / 2,
-                                   width: center.size.width,
-                                   height: center.size.height))
-            right.draw(in: CGRect(x: left.size.width + spacing + center.size.width + spacing,
-                                  y: (height - right.size.height) / 2,
-                                  width: right.size.width,
-                                  height: right.size.height))
+        guard let exclBase = NSImage(systemSymbolName: "exclamationmark.circle.fill",
+                                     accessibilityDescription: nil)?
+                  .withSymbolConfiguration(symConfig)
+        else { return apeBase }
+
+        let isDark = button.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+        let apeImg  = tinted(apeBase,  with: isDark ? .white : .black, size: NSSize(width: size, height: size))
+        let exclImg = tinted(exclBase, with: .systemGreen)
+
+        let totalW = apeImg.size.width + spacing + exclImg.size.width
+        let height = max(apeImg.size.height, exclImg.size.height)
+
+        let result = NSImage(size: NSSize(width: totalW, height: height), flipped: false) { _ in
+            apeImg.draw(in: CGRect(x: 0,
+                                   y: (height - apeImg.size.height) / 2,
+                                   width: apeImg.size.width, height: apeImg.size.height))
+            exclImg.draw(in: CGRect(x: apeImg.size.width + spacing,
+                                    y: (height - exclImg.size.height) / 2,
+                                    width: exclImg.size.width, height: exclImg.size.height))
             return true
         }
         result.isTemplate = false
         return result
     }
 
-    private func tinted(_ image: NSImage, with color: NSColor) -> NSImage {
-        let copy = NSImage(size: image.size, flipped: false) { rect in
+    private func tinted(_ image: NSImage, with color: NSColor, size: NSSize? = nil) -> NSImage {
+        let targetSize = size ?? image.size
+        let copy = NSImage(size: targetSize, flipped: false) { rect in
             image.draw(in: rect)
             color.setFill()
             rect.fill(using: .sourceAtop)
@@ -254,6 +246,80 @@ final class MenuBarController {
         }
         copy.isTemplate = false
         return copy
+    }
+
+    // MARK: - Pill icon rendering
+
+    /// One connected shape, left half and right half each with a different color.
+    /// Only the outer corners are rounded — inner edges are straight where the halves meet.
+    private func pillPair(leftSymbol: String, leftColor: NSColor,
+                          rightSymbol: String, rightColor: NSColor) -> NSImage {
+        let pillHeight: CGFloat    = 24
+        let outerPad: CGFloat      = 8      // container to outer edge
+        let innerPad: CGFloat      = 5      // container to center → gap between containers = 10px
+        let containerSize: CGFloat = 13     // fixed square bounding box for each icon
+        let iconPt: CGFloat        = 13
+        let cornerRadius           = pillHeight / 2
+
+        // halfW = outerPad + container + innerPad = 8 + 13 + 5 = 26
+        let halfW  = outerPad + containerSize + innerPad
+        let totalW = halfW * 2
+
+        let symConfig = NSImage.SymbolConfiguration(pointSize: iconPt, weight: .semibold)
+
+        guard let leftSym  = NSImage(systemSymbolName: leftSymbol,  accessibilityDescription: nil)?.withSymbolConfiguration(symConfig),
+              let rightSym = NSImage(systemSymbolName: rightSymbol, accessibilityDescription: nil)?.withSymbolConfiguration(symConfig)
+        else { return NSImage() }
+
+        let containerY = (pillHeight - containerSize) / 2
+
+        let result = NSImage(size: NSSize(width: totalW, height: pillHeight), flipped: false) { _ in
+            let fullRect = CGRect(x: 0, y: 0, width: totalW, height: pillHeight)
+            let fullPath = NSBezierPath(roundedRect: fullRect, xRadius: cornerRadius, yRadius: cornerRadius)
+
+            // Left half
+            NSGraphicsContext.saveGraphicsState()
+            NSBezierPath(rect: CGRect(x: 0, y: 0, width: halfW, height: pillHeight)).setClip()
+            leftColor.setFill()
+            fullPath.fill()
+            NSGraphicsContext.restoreGraphicsState()
+
+            // Right half
+            NSGraphicsContext.saveGraphicsState()
+            NSBezierPath(rect: CGRect(x: halfW, y: 0, width: halfW, height: pillHeight)).setClip()
+            rightColor.setFill()
+            fullPath.fill()
+            NSGraphicsContext.restoreGraphicsState()
+
+            // Left icon centered in its container (8px from outer left, 5px from center)
+            let leftContainer  = CGRect(x: outerPad,             y: containerY, width: containerSize, height: containerSize)
+            // Right icon centered in its container (5px from center, 8px from outer right)
+            let rightContainer = CGRect(x: halfW + innerPad,     y: containerY, width: containerSize, height: containerSize)
+
+            self.drawWhiteIcon(leftSym,  inContainer: leftContainer)
+            self.drawWhiteIcon(rightSym, inContainer: rightContainer)
+
+            return true
+        }
+        result.isTemplate = false
+        return result
+    }
+
+    /// Draws a white-tinted symbol centered within the given container rect.
+    private func drawWhiteIcon(_ symbol: NSImage, inContainer container: CGRect) {
+        let iconRect = CGRect(
+            x: container.midX - symbol.size.width  / 2,
+            y: container.midY - symbol.size.height / 2,
+            width:  symbol.size.width,
+            height: symbol.size.height
+        )
+        let white = NSImage(size: symbol.size, flipped: false) { r in
+            symbol.draw(in: r)
+            NSColor.white.setFill()
+            r.fill(using: .sourceAtop)
+            return true
+        }
+        white.draw(in: iconRect)
     }
 
     @objc private func toggleMute() {

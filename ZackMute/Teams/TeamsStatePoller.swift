@@ -1,8 +1,10 @@
 import AppKit
 import CoreAudio
+import Darwin
 
 // Polls whether Teams is actively using the microphone input.
-// This works without WebSocket pairing and covers all meeting types.
+// Checks all processes with "teams" in their name (incl. helper processes)
+// so that both enterprise and personal Teams calls are detected.
 @MainActor
 final class TeamsStatePoller {
     private weak var state: MeetingState?
@@ -39,10 +41,9 @@ final class TeamsStatePoller {
         }
     }
 
-    // Returns true if the Teams process currently has an active audio input stream.
+    // Returns true if any Teams process (main app or helper) has an active audio input stream.
     private func teamsIsUsingMicrophone() -> Bool {
-        guard let teams = TeamsMuteAction.findTeamsApp() else { return false }
-        let pid = teams.processIdentifier
+        guard TeamsMuteAction.isTeamsRunning else { return false }
 
         var size: UInt32 = 0
         var address = AudioObjectPropertyAddress(
@@ -69,10 +70,11 @@ final class TeamsStatePoller {
                 mScope: kAudioObjectPropertyScopeGlobal,
                 mElement: kAudioObjectPropertyElementMain
             )
-            guard AudioObjectGetPropertyData(objectID, &pidAddr, 0, nil, &pidSize, &pidValue) == noErr,
-                  pidValue == pid else { continue }
+            guard AudioObjectGetPropertyData(objectID, &pidAddr, 0, nil, &pidSize, &pidValue) == noErr
+            else { continue }
 
-            // Check if this process has an active input stream
+            guard isTeamsProcess(pidValue) else { continue }
+
             var isRunning: UInt32 = 0
             var runningSize = UInt32(MemoryLayout<UInt32>.size)
             var runningAddr = AudioObjectPropertyAddress(
@@ -86,5 +88,12 @@ final class TeamsStatePoller {
             }
         }
         return false
+    }
+
+    // Checks if a PID belongs to any Teams process (main app or any helper/renderer).
+    private func isTeamsProcess(_ pid: pid_t) -> Bool {
+        var name = [CChar](repeating: 0, count: 256)
+        proc_name(pid, &name, UInt32(name.count))
+        return String(cString: name).lowercased().contains("teams")
     }
 }
