@@ -174,10 +174,10 @@ final class MenuBarController {
         guard let button = statusItem.button else { return }
         guard let apeBase = NSImage(named: "ape_menubar") else { return }
 
-        let isInCall      = meetingState.isInMeeting || meetingState.isInSlackHuddle
-        // Real status only when Enterprise Teams granted toggle permission via WebSocket.
-        // canToggleMute is only true when the Third-party API is active — not for Personal Teams.
-        let hasRealStatus = meetingState.isInMeeting && meetingState.canToggleMute
+        let isInCall      = meetingState.isInMeeting || meetingState.isInSlackHuddle || meetingState.isInZoomMeeting
+        let multipleActive = (meetingState.isInSlackHuddle || meetingState.isInZoomMeeting)
+        // Show colored pill pair only for solo Enterprise Teams calls (WebSocket active, no other app in call).
+        let hasRealStatus = meetingState.isInMeeting && meetingState.canToggleMute && !multipleActive
 
         if hasRealStatus {
             // Enterprise Teams: show real mic/camera status via colored pills

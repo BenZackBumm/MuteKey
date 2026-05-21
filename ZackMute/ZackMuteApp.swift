@@ -12,6 +12,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var menuBarController: MenuBarController?
     private var statePoller: TeamsStatePoller?
     private var slackPoller: SlackStatePoller?
+    private var zoomPoller: ZoomStatePoller?
 
     override init() {
         teamsConnector = TeamsConnector(state: meetingState)
@@ -31,5 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statePoller?.start()
         slackPoller = SlackStatePoller(state: meetingState)
         slackPoller?.start()
+        zoomPoller = ZoomStatePoller(state: meetingState)
+        zoomPoller?.start()
     }
 }

@@ -47,8 +47,8 @@ struct SettingsView: View {
                     Text(TeamsMuteAction.isAccessibilityGranted
                          ? "Bedienungshilfen: Erlaubt"
                          : "Bedienungshilfen: Nicht erlaubt")
+                    Spacer()
                     if !TeamsMuteAction.isAccessibilityGranted {
-                        Spacer()
                         Button("Erlauben") {
                             TeamsMuteAction.requestAccessibility()
                         }
@@ -100,7 +100,20 @@ struct SettingsView: View {
 
                     Divider()
 
-                    Text("Hinweis: Sind Slack-Huddle und Teams-Meeting gleichzeitig aktiv, können Shortcuts unerwartet reagieren.")
+                    HStack(spacing: 8) {
+                        Circle()
+                            .fill(zoomStatusColor)
+                            .frame(width: 8, height: 8)
+                        Text("Zoom")
+                            .fontWeight(.medium)
+                        Spacer()
+                        Text(zoomStatusText)
+                            .foregroundStyle(zoomStatusColor == .secondary ? AnyShapeStyle(.secondary) : AnyShapeStyle(zoomStatusColor))
+                    }
+
+                    Divider()
+
+                    Text("Hinweis: Sind mehrere Videocalls gleichzeitig aktiv, schaltet der Kurzbefehl alle gemeinsam. Dies kann zu Fehlern führen.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -135,6 +148,16 @@ struct SettingsView: View {
     private var slackStatusText: String {
         if !meetingState.isSlackRunning { return "Nicht gestartet" }
         return meetingState.isInSlackHuddle ? "Huddle aktiv" : "Verbunden"
+    }
+
+    private var zoomStatusColor: Color {
+        if !meetingState.isZoomRunning { return .secondary }
+        return .green
+    }
+
+    private var zoomStatusText: String {
+        if !meetingState.isZoomRunning { return "Nicht gestartet" }
+        return meetingState.isInZoomMeeting ? "In Meeting" : "Verbunden"
     }
 
     private var teamsStatusColor: Color {
