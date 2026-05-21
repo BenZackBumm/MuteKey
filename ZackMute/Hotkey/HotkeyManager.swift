@@ -1,4 +1,5 @@
 import KeyboardShortcuts
+import UserNotifications
 
 extension KeyboardShortcuts.Name {
     static let toggleMute   = Self("toggleMute",   default: .init(.f19))
@@ -32,14 +33,27 @@ enum HotkeyManager {
                           && (!teams || !meetingState.isCameraOn)
                 let target = allOff  // turn on if all off, otherwise turn all off
 
-                if slack && meetingState.isSlackCameraOn != target {
-                    SlackMuteAction.toggleCamera()
-                    meetingState.isSlackCameraOn = target
+                // Slack Huddle has no camera shortcut — notify the user
+                if slack && !teams {
+                    notifySlackCameraUnsupported()
+                    return
                 }
                 if teams && meetingState.isCameraOn != target {
                     teamsConnector.toggleCamera()
                 }
             }
         }
+    }
+
+    private static func notifySlackCameraUnsupported() {
+        let content = UNMutableNotificationContent()
+        content.title = "ZackMute"
+        content.body = "Webcam-Toggle wird von Slack Huddle nicht unterstützt."
+        let request = UNNotificationRequest(
+            identifier: "slack-camera-unsupported",
+            content: content,
+            trigger: nil
+        )
+        UNUserNotificationCenter.current().add(request)
     }
 }

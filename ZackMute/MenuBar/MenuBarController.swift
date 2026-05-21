@@ -191,7 +191,7 @@ final class MenuBarController {
             )
         } else if isInCall {
             // Personal Teams or Slack: status unknown — ape + green "!"
-            button.image = activeCallIcon(apeBase: apeBase, button: button)
+            button.image = activeCallIcon(apeBase: apeBase)
         } else {
             // Idle: single template icon — auto-adapts to Dark/Light Mode
             let idle = NSImage(size: NSSize(width: 16, height: 16), flipped: false) { rect in
@@ -205,31 +205,24 @@ final class MenuBarController {
         button.toolTip = meetingState.statusDescription
     }
 
-    /// Ape icon + green "!" — used when in a call but real mic/camera status is unavailable.
-    private func activeCallIcon(apeBase: NSImage, button: NSStatusBarButton) -> NSImage {
-        let size: CGFloat = 16
-        let spacing: CGFloat = 3
-        let symConfig = NSImage.SymbolConfiguration(pointSize: size, weight: .medium)
+    /// Blue pill with the ape icon centered — used when in a call but real mic/camera status is unavailable.
+    private func activeCallIcon(apeBase: NSImage) -> NSImage {
+        let pillHeight: CGFloat  = 24
+        let iconSize: CGFloat    = 15
+        let hPad: CGFloat        = 11      // horizontal padding on each side
+        let cornerRadius         = pillHeight / 2
+        let totalW               = iconSize + hPad * 2
 
-        guard let exclBase = NSImage(systemSymbolName: "exclamationmark.circle.fill",
-                                     accessibilityDescription: nil)?
-                  .withSymbolConfiguration(symConfig)
-        else { return apeBase }
+        let apeImg = tinted(apeBase, with: .white, size: NSSize(width: iconSize, height: iconSize))
 
-        let isDark = button.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-        let apeImg  = tinted(apeBase,  with: isDark ? .white : .black, size: NSSize(width: size, height: size))
-        let exclImg = tinted(exclBase, with: .systemGreen)
+        let result = NSImage(size: NSSize(width: totalW, height: pillHeight), flipped: false) { _ in
+            NSColor.systemBlue.setFill()
+            NSBezierPath(roundedRect: CGRect(x: 0, y: 0, width: totalW, height: pillHeight),
+                         xRadius: cornerRadius, yRadius: cornerRadius).fill()
 
-        let totalW = apeImg.size.width + spacing + exclImg.size.width
-        let height = max(apeImg.size.height, exclImg.size.height)
-
-        let result = NSImage(size: NSSize(width: totalW, height: height), flipped: false) { _ in
-            apeImg.draw(in: CGRect(x: 0,
-                                   y: (height - apeImg.size.height) / 2,
-                                   width: apeImg.size.width, height: apeImg.size.height))
-            exclImg.draw(in: CGRect(x: apeImg.size.width + spacing,
-                                    y: (height - exclImg.size.height) / 2,
-                                    width: exclImg.size.width, height: exclImg.size.height))
+            let x = (totalW  - apeImg.size.width)  / 2
+            let y = (pillHeight - apeImg.size.height) / 2
+            apeImg.draw(in: CGRect(x: x, y: y, width: apeImg.size.width, height: apeImg.size.height))
             return true
         }
         result.isTemplate = false

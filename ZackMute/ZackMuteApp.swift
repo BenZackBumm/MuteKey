@@ -1,5 +1,6 @@
 import AppKit
 import KeyboardShortcuts
+import UserNotifications
 
 // Entry point is main.swift — no @main / SwiftUI App protocol.
 // This avoids SwiftUI scene management conflicts in LSUIElement menu bar apps.
@@ -18,6 +19,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { _, _ in }
+
         menuBarController = MenuBarController(
             meetingState: meetingState,
             teamsConnector: teamsConnector
