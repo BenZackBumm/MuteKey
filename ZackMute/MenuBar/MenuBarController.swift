@@ -27,8 +27,9 @@ final class MenuBarController {
         let menu = NSMenu()
         menu.autoenablesItems = false
 
-        // Status line (plain NSMenuItem, non-selectable)
-        let statusItem = NSMenuItem(title: "–", action: nil, keyEquivalent: "")
+        // Status line — clickable when multiple calls are active
+        let statusItem = NSMenuItem(title: "–", action: #selector(showMultipleCallsInfo), keyEquivalent: "")
+        statusItem.target = self
         statusItem.isEnabled = false
         menu.addItem(statusItem)
         self.statusMenuItem = statusItem
@@ -102,7 +103,11 @@ final class MenuBarController {
     }
 
     private func updateMenuItems() {
-        statusMenuItem?.title = meetingState.statusDescription
+        let multipleCalls = meetingState.activeCallCount >= 2
+        statusMenuItem?.title = multipleCalls
+            ? "Achtung: Mehrere aktive Meetings (mehr erfahren)"
+            : meetingState.statusDescription
+        statusMenuItem?.isEnabled = multipleCalls
 
         // Show accessibility warning only when permission is missing
         accessibilityMenuItem?.isHidden = AXIsProcessTrusted()
@@ -324,6 +329,15 @@ final class MenuBarController {
             return true
         }
         white.draw(in: iconRect)
+    }
+
+    @objc private func showMultipleCallsInfo() {
+        let alert = NSAlert()
+        alert.messageText = "Du bist in mehreren Video-Calls gleichzeitig."
+        alert.informativeText = "ZackMute schaltet mit dem Kurzbefehl alle aktiven Calls gemeinsam stumm — oder reaktiviert sie gemeinsam. Das kann dazu führen, dass du in einem Call versehentlich stummgeschaltet bleibst oder unbemerkt zu hören bist."
+        alert.addButton(withTitle: "Verstanden")
+        alert.alertStyle = .informational
+        alert.runModal()
     }
 
     @objc private func toggleMute() {

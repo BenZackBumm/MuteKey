@@ -21,17 +21,19 @@ final class MeetingState: ObservableObject {
     @Published var isSlackRunning = false
     @Published var isZoomRunning = false
 
+    var activeCallCount: Int {
+        (isInMeeting ? 1 : 0) + (isInSlackHuddle ? 1 : 0) + (isInZoomMeeting ? 1 : 0)
+    }
+
     var statusDescription: String {
-        let inTeams = isInMeeting
-        let inSlack = isInSlackHuddle
-        let inZoom  = isInZoomMeeting
-        if inTeams && inSlack && inZoom { return "Teams, Slack & Zoom aktiv" }
-        if inTeams && inZoom  { return "Teams & Zoom aktiv" }
-        if inSlack && inZoom  { return "Slack Huddle & Zoom aktiv" }
-        if inTeams && inSlack { return "In Meeting & Huddle" }
-        if inZoom  { return isZoomMuted ? "Stummgeschaltet" : "Mikrofon aktiv" }
-        if inSlack { return "In Huddle (Slack)" }
-        if inTeams { return isMuted ? "Stummgeschaltet" : "Mikrofon aktiv" }
-        return "Kein aktives Meeting"
+        switch activeCallCount {
+        case 0: return "Kein aktives Meeting"
+        case 1:
+            if isInMeeting    { return "Aktives Meeting: Teams" }
+            if isInSlackHuddle { return "Aktives Meeting: Slack" }
+            if isInZoomMeeting { return "Aktives Meeting: Zoom" }
+            return "Kein aktives Meeting"
+        default: return "Mehrere aktive Meetings"
+        }
     }
 }
