@@ -26,6 +26,8 @@
 		FA0000000000000000000001 /* ZoomMuteAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0000000000000000000002 /* ZoomMuteAction.swift */; };
 		FA0000000000000000000003 /* ZoomStatePoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0000000000000000000004 /* ZoomStatePoller.swift */; };
 		LC000004 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = LC000003 /* Localizable.strings */; };
+		WZ000003 /* WizardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = WZ000001 /* WizardView.swift */; };
+		WZ000004 /* WizardWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = WZ000002 /* WizardWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		FA0000000000000000000004 /* ZoomStatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomStatePoller.swift; sourceTree = "<group>"; };
 		LC000001 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		LC000002 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		WZ000001 /* WizardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WizardView.swift; sourceTree = "<group>"; };
+		WZ000002 /* WizardWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WizardWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +130,7 @@
 				5D574978DCFCE22737841C8C /* Slack */,
 				72CD01E18202DBE7A6FA633A /* Teams */,
 				FA0000000000000000000005 /* Zoom */,
+				WZ000005 /* Wizard */,
 			);
 			path = ZackMute;
 			sourceTree = "<group>";
@@ -155,6 +160,15 @@
 				FA0000000000000000000004 /* ZoomStatePoller.swift */,
 			);
 			path = Zoom;
+			sourceTree = "<group>";
+		};
+		WZ000005 /* Wizard */ = {
+			isa = PBXGroup;
+			children = (
+				WZ000001 /* WizardView.swift */,
+				WZ000002 /* WizardWindowController.swift */,
+			);
+			path = Wizard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +265,8 @@
 				E59DEDA4AA9DD53315C51872 /* TeamsStatePoller.swift in Sources */,
 				0433927A388D32CF2B2F9651 /* ZackMuteApp.swift in Sources */,
 				40041920753CBF9FB3F70F30 /* main.swift in Sources */,
+				WZ000003 /* WizardView.swift in Sources */,
+				WZ000004 /* WizardWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

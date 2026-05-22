@@ -7,6 +7,17 @@ struct SettingsView: View {
     @EnvironmentObject var teamsConnector: TeamsConnector
 
     var body: some View {
+        TabView {
+            generalTab
+                .tabItem { Label("settings.tab.general", systemImage: "gearshape") }
+            AboutView()
+                .tabItem { Label("settings.tab.about", systemImage: "info.circle") }
+        }
+    }
+
+    // MARK: - General Tab
+
+    private var generalTab: some View {
         VStack(alignment: .leading, spacing: 20) {
             settingsSection(String(localized: "settings.section.general")) {
                 HStack {
@@ -182,5 +193,61 @@ struct SettingsView: View {
                 .background(Color(NSColor.controlBackgroundColor))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
         }
+    }
+}
+
+// MARK: - About Tab
+
+struct AboutView: View {
+    var body: some View {
+        VStack(spacing: 20) {
+            VStack(spacing: 8) {
+                Image(nsImage: NSImage(named: NSImage.applicationIconName) ?? NSImage())
+                    .resizable()
+                    .frame(width: 80, height: 80)
+                Text("ZackMute")
+                    .font(.title2).bold()
+                Text("Version \(appVersion)")
+                    .foregroundStyle(.secondary)
+                Text("settings.about.description")
+                    .font(.subheadline)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.secondary)
+            }
+
+            Divider()
+
+            VStack(spacing: 8) {
+                HStack {
+                    Text("settings.about.developer")
+                    Spacer()
+                    Text("Ben Krammer")
+                        .foregroundStyle(.secondary)
+                }
+                HStack {
+                    Text("GitHub")
+                    Spacer()
+                    Link("BenZackBumm/ZackMute",
+                         destination: URL(string: "https://github.com/BenZackBumm/ZackMute")!)
+                }
+            }
+
+            Divider()
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text("settings.about.credits")
+                    .font(.headline)
+                Text("KeyboardShortcuts — Sindre Sorhus")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(20)
+        .frame(width: 400)
+    }
+
+    private var appVersion: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "–"
     }
 }

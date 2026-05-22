@@ -34,5 +34,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         slackPoller?.start()
         zoomPoller = ZoomStatePoller(state: meetingState)
         zoomPoller?.start()
+
+        // Delay ensures the run loop is fully active before showing a window
+        // — required for LSUIElement apps that have no window context at launch.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            WizardWindowController.showIfNeeded()
+        }
     }
 }

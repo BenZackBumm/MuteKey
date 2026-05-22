@@ -41,5 +41,39 @@
 "settings.teams.setup_hint" = "One-time setup: Teams → Settings → Privacy → enable \"Third-party app API\". ZackMute will connect automatically at the start of your next meeting.";
 "settings.connections.multiple_calls_hint" = "Note: When multiple video calls are active, the shortcut toggles all of them together. This may cause unintended behavior.";
 
+/* Settings — Tabs */
+"settings.tab.general" = "General";
+"settings.tab.about" = "About";
+
+/* Settings — About */
+"settings.about.description" = "Global shortcuts for microphone and camera in Teams, Slack, and Zoom.";
+"settings.about.developer" = "Developer";
+"settings.about.credits" = "Acknowledgements";
+
 /* Notifications */
 "notification.slack_camera_unsupported" = "Camera toggle is not supported in Slack Huddle.";
+
+/* Wizard */
+"wizard.next" = "Next";
+"wizard.back" = "Back";
+"wizard.done" = "Done";
+
+"wizard.welcome.title" = "Welcome to ZackMute";
+"wizard.welcome.subtitle" = "Global shortcuts for microphone and camera in Teams, Slack, and Zoom.";
+
+"wizard.accessibility.title" = "Allow Accessibility Access";
+"wizard.accessibility.description" = "ZackMute needs Accessibility access to perform mute actions in Teams.";
+"wizard.accessibility.granted" = "Access granted";
+"wizard.accessibility.denied" = "Access not granted";
+
+"wizard.shortcuts.title" = "Set Up Keyboard Shortcuts";
+"wizard.shortcuts.description" = "Set global shortcuts that work in any meeting.";
+
+"wizard.teams.title" = "Set Up Teams";
+"wizard.teams.description" = "One-time setup: in MS Teams, go to _Settings → Privacy_ and enable \"Third-party app API\". ZackMute will connect automatically when your next meeting starts.";
+
+"wizard.login.title" = "Launch at Login";
+"wizard.login.description" = "Automatically start ZackMute when you log in.";
+
+"wizard.done.title" = "ZackMute is Ready!";
+"wizard.done.description" = "The app icon appears in the menu bar. Use your shortcut to control your microphone and camera.";

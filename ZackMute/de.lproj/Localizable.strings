@@ -41,5 +41,39 @@
 "settings.teams.setup_hint" = "Einmaliges Setup: Teams → Einstellungen → Datenschutz → \"Third-party app API\" aktivieren. Beim nächsten Meeting-Start verbindet ZackMute automatisch.";
 "settings.connections.multiple_calls_hint" = "Hinweis: Sind mehrere Videocalls gleichzeitig aktiv, schaltet der Kurzbefehl alle gemeinsam. Dies kann zu Fehlern führen.";
 
+/* Settings — Tabs */
+"settings.tab.general" = "Allgemein";
+"settings.tab.about" = "Über ZackMute";
+
+/* Settings — About */
+"settings.about.description" = "Globale Kurzbefehle für Mikrofon und Kamera in Teams, Slack und Zoom.";
+"settings.about.developer" = "Entwickler";
+"settings.about.credits" = "Danksagungen";
+
 /* Notifications */
 "notification.slack_camera_unsupported" = "Webcam-Toggle wird von Slack Huddle nicht unterstützt.";
+
+/* Wizard */
+"wizard.next" = "Weiter";
+"wizard.back" = "Zurück";
+"wizard.done" = "Fertig";
+
+"wizard.welcome.title" = "Willkommen bei ZackMute";
+"wizard.welcome.subtitle" = "Globale Kurzbefehle für Mikrofon und Kamera in Teams, Slack und Zoom.";
+
+"wizard.accessibility.title" = "Bedienungshilfen erlauben";
+"wizard.accessibility.description" = "ZackMute benötigt Zugriffsrechte auf die Bedienungshilfen, um Mute-Aktionen in Teams auszuführen.";
+"wizard.accessibility.granted" = "Zugriff erlaubt";
+"wizard.accessibility.denied" = "Zugriff nicht erlaubt";
+
+"wizard.shortcuts.title" = "Tastaturkürzel einrichten";
+"wizard.shortcuts.description" = "Lege globale Kurzbefehle fest, die in jedem Meeting funktionieren.";
+
+"wizard.teams.title" = "Teams einrichten";
+"wizard.teams.description" = "Einmaliges Setup: Öffne in MS Teams _Einstellungen → Datenschutz_ und aktiviere \"Drittanbieter-App-API\". ZackMute verbindet sich automatisch beim nächsten Meeting-Start.";
+
+"wizard.login.title" = "Beim Login starten";
+"wizard.login.description" = "ZackMute automatisch starten, wenn du dich anmeldest.";
+
+"wizard.done.title" = "ZackMute ist bereit!";
+"wizard.done.description" = "Das App-Icon erscheint in der Menüleiste. Nutze deinen Kurzbefehl, um Mikrofon und Kamera zu steuern.";
