@@ -26,6 +26,11 @@ enum ZoomMuteAction {
     @MainActor
     static var isZoomRunning: Bool { findZoom() != nil }
 
+    // MARK: - Internal (used by ZoomStatePoller for AX access)
+
+    @MainActor
+    static func findZoomApp() -> NSRunningApplication? { findZoom() }
+
     // MARK: - Private
 
     @MainActor

@@ -174,23 +174,34 @@ final class MenuBarController {
         guard let button = statusItem.button else { return }
         guard let apeBase = NSImage(named: "ape_menubar") else { return }
 
-        let isInCall      = meetingState.isInMeeting || meetingState.isInSlackHuddle || meetingState.isInZoomMeeting
-        let multipleActive = (meetingState.isInSlackHuddle || meetingState.isInZoomMeeting)
-        // Show colored pill pair only for solo Enterprise Teams calls (WebSocket active, no other app in call).
-        let hasRealStatus = meetingState.isInMeeting && meetingState.canToggleMute && !multipleActive
+        let isInCall       = meetingState.isInMeeting || meetingState.isInSlackHuddle || meetingState.isInZoomMeeting
+        let multipleActive = meetingState.isInSlackHuddle || meetingState.isInZoomMeeting
+        // Colored pill pair: Enterprise Teams solo, or Zoom solo
+        let hasTeamsStatus = meetingState.isInMeeting && meetingState.canToggleMute && !multipleActive
+        let hasZoomStatus  = meetingState.isInZoomMeeting && !meetingState.isInMeeting && !meetingState.isInSlackHuddle
 
-        if hasRealStatus {
-            // Enterprise Teams: show real mic/camera status via colored pills
+        if hasTeamsStatus {
+            // Enterprise Teams: real mic/camera status via WebSocket
             let isMuted    = meetingState.isMuted
             let isCameraOn = meetingState.isCameraOn
-            let micName    = isMuted    ? "mic.slash.fill" : "mic.fill"
-            let camName    = isCameraOn ? "video.fill"      : "video.slash.fill"
             button.image = pillPair(
-                leftSymbol:  micName,  leftColor:  isMuted    ? .systemRed   : .systemGreen,
-                rightSymbol: camName,  rightColor: isCameraOn ? .systemGreen : .systemRed
+                leftSymbol:  isMuted    ? "mic.slash.fill" : "mic.fill",
+                leftColor:   isMuted    ? .systemRed       : .systemGreen,
+                rightSymbol: isCameraOn ? "video.fill"     : "video.slash.fill",
+                rightColor:  isCameraOn ? .systemGreen     : .systemRed
+            )
+        } else if hasZoomStatus {
+            // Zoom solo: real mic/camera status via AX-Tree
+            let isMuted    = meetingState.isZoomMuted
+            let isCameraOn = meetingState.isZoomCameraOn
+            button.image = pillPair(
+                leftSymbol:  isMuted    ? "mic.slash.fill" : "mic.fill",
+                leftColor:   isMuted    ? .systemRed       : .systemGreen,
+                rightSymbol: isCameraOn ? "video.fill"     : "video.slash.fill",
+                rightColor:  isCameraOn ? .systemGreen     : .systemRed
             )
         } else if isInCall {
-            // Personal Teams or Slack: status unknown — ape + green "!"
+            // Multiple calls, Slack, or Personal Teams: status unknown → blue pill
             button.image = activeCallIcon(apeBase: apeBase)
         } else {
             // Idle: single template icon — auto-adapts to Dark/Light Mode

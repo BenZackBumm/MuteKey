@@ -91,8 +91,8 @@ final class SlackStatePoller {
 
     // Check if a PID belongs to any Slack process (main app or any helper/renderer).
     private func isSlackProcess(_ pid: pid_t) -> Bool {
-        var name = [CChar](repeating: 0, count: 256)
+        var name = [UInt8](repeating: 0, count: 256)
         proc_name(pid, &name, UInt32(name.count))
-        return String(cString: name).lowercased().contains("slack")
+        return String(decoding: name.prefix(while: { $0 != 0 }), as: UTF8.self).lowercased().contains("slack")
     }
 }

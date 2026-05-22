@@ -28,7 +28,7 @@ enum HotkeyManager {
                 }
                 if zoom && meetingState.isZoomMuted != target {
                     ZoomMuteAction.toggleMic()
-                    meetingState.isZoomMuted = target
+                    meetingState.isZoomMuted = target  // Optimistic — AX overrides when toolbar visible
                 }
             }
         }
@@ -52,7 +52,7 @@ enum HotkeyManager {
                 }
                 if zoom && meetingState.isZoomCameraOn != target {
                     ZoomMuteAction.toggleCamera()
-                    meetingState.isZoomCameraOn = target
+                    meetingState.isZoomCameraOn = target  // Optimistic — AX overrides when toolbar visible
                 }
             }
         }
