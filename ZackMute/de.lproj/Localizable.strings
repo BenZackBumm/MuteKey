@@ -1,0 +1,45 @@
+/* MenuBar */
+"menu.mute" = "Stummschalten";
+"menu.mic.mute" = "Mikrofon stumm";
+"menu.mic.unmute" = "Mikrofon einschalten";
+"menu.camera.off" = "Webcam aus";
+"menu.camera.on" = "Webcam an";
+"menu.settings" = "Einstellungen…";
+"menu.quit" = "ZackMute beenden";
+"menu.accessibility.request" = "⚠️ Bedienungshilfen erlauben…";
+"menu.status.multiple_calls" = "Achtung: Mehrere aktive Meetings (mehr erfahren)";
+
+/* Alert: multiple calls */
+"alert.multiple_calls.title" = "Du bist in mehreren Video-Calls gleichzeitig.";
+"alert.multiple_calls.message" = "ZackMute schaltet mit dem Kurzbefehl alle aktiven Calls gemeinsam stumm — oder reaktiviert sie gemeinsam. Das kann dazu führen, dass du in einem Call versehentlich stummgeschaltet bleibst oder unbemerkt zu hören bist.";
+"alert.button.ok" = "Verstanden";
+
+/* Meeting status */
+"status.active_meeting.teams" = "Aktives Meeting: Teams";
+"status.active_meeting.slack" = "Aktives Meeting: Slack";
+"status.active_meeting.zoom" = "Aktives Meeting: Zoom";
+"status.multiple_meetings" = "Mehrere aktive Meetings";
+"status.no_meeting" = "Kein aktives Meeting";
+
+/* Settings */
+"settings.section.general" = "Allgemein";
+"settings.launch_at_login" = "Beim Login automatisch starten";
+"settings.section.shortcuts" = "Tastaturkürzel";
+"settings.shortcut.mic" = "Mikrofon";
+"settings.shortcut.camera" = "Webcam";
+"settings.section.permissions" = "Berechtigungen";
+"settings.accessibility.granted" = "Bedienungshilfen: Erlaubt";
+"settings.accessibility.denied" = "Bedienungshilfen: Nicht erlaubt";
+"settings.accessibility.grant_button" = "Erlauben";
+"settings.section.connections" = "Verbindungen";
+"status.not_running" = "Nicht gestartet";
+"status.slack.huddle_active" = "Huddle aktiv";
+"status.connected" = "Verbunden";
+"status.in_meeting" = "In Meeting";
+"status.not_connected" = "Nicht verbunden";
+"settings.teams.reset_button" = "Zurücksetzen";
+"settings.teams.setup_hint" = "Einmaliges Setup: Teams → Einstellungen → Datenschutz → \"Third-party app API\" aktivieren. Beim nächsten Meeting-Start verbindet ZackMute automatisch.";
+"settings.connections.multiple_calls_hint" = "Hinweis: Sind mehrere Videocalls gleichzeitig aktiv, schaltet der Kurzbefehl alle gemeinsam. Dies kann zu Fehlern führen.";
+
+/* Notifications */
+"notification.slack_camera_unsupported" = "Webcam-Toggle wird von Slack Huddle nicht unterstützt.";

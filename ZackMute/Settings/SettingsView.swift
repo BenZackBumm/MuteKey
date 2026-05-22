@@ -8,9 +8,9 @@ struct SettingsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            settingsSection("Allgemein") {
+            settingsSection(String(localized: "settings.section.general")) {
                 HStack {
-                    Text("Beim Login automatisch starten")
+                    Text("settings.launch_at_login")
                     Spacer()
                     Toggle("", isOn: Binding(
                         get: { SMAppService.mainApp.status == .enabled },
@@ -22,34 +22,34 @@ struct SettingsView: View {
                 }
             }
 
-            settingsSection("Tastaturkürzel") {
+            settingsSection(String(localized: "settings.section.shortcuts")) {
                 VStack(spacing: 8) {
                     HStack {
                         Image(systemName: "mic.slash.fill").frame(width: 16)
-                        Text("Mikrofon")
+                        Text("settings.shortcut.mic")
                         Spacer()
                         KeyboardShortcuts.Recorder("", name: .toggleMute)
                     }
                     HStack {
                         Image(systemName: "video.fill").frame(width: 16)
-                        Text("Webcam")
+                        Text("settings.shortcut.camera")
                         Spacer()
                         KeyboardShortcuts.Recorder("", name: .toggleCamera)
                     }
                 }
             }
 
-            settingsSection("Berechtigungen") {
+            settingsSection(String(localized: "settings.section.permissions")) {
                 HStack(spacing: 8) {
                     Circle()
                         .fill(TeamsMuteAction.isAccessibilityGranted ? Color.green : Color.red)
                         .frame(width: 8, height: 8)
                     Text(TeamsMuteAction.isAccessibilityGranted
-                         ? "Bedienungshilfen: Erlaubt"
-                         : "Bedienungshilfen: Nicht erlaubt")
+                         ? String(localized: "settings.accessibility.granted")
+                         : String(localized: "settings.accessibility.denied"))
                     Spacer()
                     if !TeamsMuteAction.isAccessibilityGranted {
-                        Button("Erlauben") {
+                        Button(String(localized: "settings.accessibility.grant_button")) {
                             TeamsMuteAction.requestAccessibility()
                         }
                         .controlSize(.small)
@@ -57,7 +57,7 @@ struct SettingsView: View {
                 }
             }
 
-            settingsSection("Verbindungen") {
+            settingsSection(String(localized: "settings.section.connections")) {
                 VStack(alignment: .leading, spacing: 10) {
                     HStack(spacing: 8) {
                         Circle()
@@ -84,14 +84,14 @@ struct SettingsView: View {
                                 .foregroundStyle(teamsStatusColor == .secondary ? AnyShapeStyle(.secondary) : AnyShapeStyle(teamsStatusColor))
                         }
                         if teamsConnector.hasToken {
-                            Button("Zurücksetzen") {
+                            Button(String(localized: "settings.teams.reset_button")) {
                                 teamsConnector.clearToken()
                             }
                             .foregroundStyle(.red)
                             .controlSize(.small)
                         }
                         if !teamsConnector.hasToken {
-                            Text("Einmaliges Setup: Teams → Einstellungen → Datenschutz → \"Third-party app API\" aktivieren. Beim nächsten Meeting-Start verbindet ZackMute automatisch.")
+                            Text("settings.teams.setup_hint")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                                 .fixedSize(horizontal: false, vertical: true)
@@ -113,7 +113,7 @@ struct SettingsView: View {
 
                     Divider()
 
-                    Text("Hinweis: Sind mehrere Videocalls gleichzeitig aktiv, schaltet der Kurzbefehl alle gemeinsam. Dies kann zu Fehlern führen.")
+                    Text("settings.connections.multiple_calls_hint")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -146,8 +146,8 @@ struct SettingsView: View {
     }
 
     private var slackStatusText: String {
-        if !meetingState.isSlackRunning { return "Nicht gestartet" }
-        return meetingState.isInSlackHuddle ? "Huddle aktiv" : "Verbunden"
+        if !meetingState.isSlackRunning { return String(localized: "status.not_running") }
+        return meetingState.isInSlackHuddle ? String(localized: "status.slack.huddle_active") : String(localized: "status.connected")
     }
 
     private var zoomStatusColor: Color {
@@ -156,8 +156,8 @@ struct SettingsView: View {
     }
 
     private var zoomStatusText: String {
-        if !meetingState.isZoomRunning { return "Nicht gestartet" }
-        return meetingState.isInZoomMeeting ? "In Meeting" : "Verbunden"
+        if !meetingState.isZoomRunning { return String(localized: "status.not_running") }
+        return meetingState.isInZoomMeeting ? String(localized: "status.in_meeting") : String(localized: "status.connected")
     }
 
     private var teamsStatusColor: Color {
@@ -167,9 +167,9 @@ struct SettingsView: View {
     }
 
     private var teamsStatusText: String {
-        if !meetingState.isTeamsRunning { return "Nicht gestartet" }
-        if !meetingState.isConnectedToTeams { return "Nicht verbunden" }
-        return meetingState.isInMeeting ? "In Meeting" : "Verbunden"
+        if !meetingState.isTeamsRunning { return String(localized: "status.not_running") }
+        if !meetingState.isConnectedToTeams { return String(localized: "status.not_connected") }
+        return meetingState.isInMeeting ? String(localized: "status.in_meeting") : String(localized: "status.connected")
     }
 
     @ViewBuilder

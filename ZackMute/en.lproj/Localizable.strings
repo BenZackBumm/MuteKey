@@ -1,0 +1,45 @@
+/* MenuBar */
+"menu.mute" = "Mute Microphone";
+"menu.mic.mute" = "Mute Microphone";
+"menu.mic.unmute" = "Unmute Microphone";
+"menu.camera.off" = "Turn Off Camera";
+"menu.camera.on" = "Turn On Camera";
+"menu.settings" = "Settings…";
+"menu.quit" = "Quit ZackMute";
+"menu.accessibility.request" = "⚠️ Allow Accessibility…";
+"menu.status.multiple_calls" = "Caution: Multiple Active Meetings (learn more)";
+
+/* Alert: multiple calls */
+"alert.multiple_calls.title" = "You are in multiple video calls at the same time.";
+"alert.multiple_calls.message" = "ZackMute mutes or unmutes all active calls together when you use the keyboard shortcut. This can cause you to accidentally stay muted in one call, or be heard without realizing it.";
+"alert.button.ok" = "OK";
+
+/* Meeting status */
+"status.active_meeting.teams" = "Active Meeting: Teams";
+"status.active_meeting.slack" = "Active Meeting: Slack";
+"status.active_meeting.zoom" = "Active Meeting: Zoom";
+"status.multiple_meetings" = "Multiple Active Meetings";
+"status.no_meeting" = "No Active Meeting";
+
+/* Settings */
+"settings.section.general" = "General";
+"settings.launch_at_login" = "Launch at Login";
+"settings.section.shortcuts" = "Keyboard Shortcuts";
+"settings.shortcut.mic" = "Microphone";
+"settings.shortcut.camera" = "Camera";
+"settings.section.permissions" = "Permissions";
+"settings.accessibility.granted" = "Accessibility: Allowed";
+"settings.accessibility.denied" = "Accessibility: Not Allowed";
+"settings.accessibility.grant_button" = "Allow";
+"settings.section.connections" = "Connections";
+"status.not_running" = "Not Running";
+"status.slack.huddle_active" = "Huddle Active";
+"status.connected" = "Connected";
+"status.in_meeting" = "In Meeting";
+"status.not_connected" = "Not Connected";
+"settings.teams.reset_button" = "Reset";
+"settings.teams.setup_hint" = "One-time setup: Teams → Settings → Privacy → enable \"Third-party app API\". ZackMute will connect automatically at the start of your next meeting.";
+"settings.connections.multiple_calls_hint" = "Note: When multiple video calls are active, the shortcut toggles all of them together. This may cause unintended behavior.";
+
+/* Notifications */
+"notification.slack_camera_unsupported" = "Camera toggle is not supported in Slack Huddle.";

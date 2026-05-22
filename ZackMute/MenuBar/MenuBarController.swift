@@ -37,7 +37,7 @@ final class MenuBarController {
         menu.addItem(.separator())
 
         let muteItem = NSMenuItem(
-            title: "Stummschalten",
+            title: String(localized: "menu.mute"),
             action: #selector(toggleMute),
             keyEquivalent: ""
         )
@@ -47,7 +47,7 @@ final class MenuBarController {
         self.muteMenuItem = muteItem
 
         let cameraItem = NSMenuItem(
-            title: "Webcam aus",
+            title: String(localized: "menu.camera.off"),
             action: #selector(toggleCamera),
             keyEquivalent: ""
         )
@@ -59,7 +59,7 @@ final class MenuBarController {
         menu.addItem(.separator())
 
         let settingsItem = NSMenuItem(
-            title: "Einstellungen…",
+            title: String(localized: "menu.settings"),
             action: #selector(openSettings),
             keyEquivalent: ","
         )
@@ -67,7 +67,7 @@ final class MenuBarController {
         menu.addItem(settingsItem)
 
         let quitItem = NSMenuItem(
-            title: "ZackMute beenden",
+            title: String(localized: "menu.quit"),
             action: #selector(quitApp),
             keyEquivalent: "q"
         )
@@ -76,7 +76,7 @@ final class MenuBarController {
 
         // Accessibility warning — shown only when permission is missing
         let axItem = NSMenuItem(
-            title: "⚠️ Bedienungshilfen erlauben…",
+            title: String(localized: "menu.accessibility.request"),
             action: #selector(requestAccessibility),
             keyEquivalent: ""
         )
@@ -105,7 +105,7 @@ final class MenuBarController {
     private func updateMenuItems() {
         let multipleCalls = meetingState.activeCallCount >= 2
         statusMenuItem?.title = multipleCalls
-            ? "Achtung: Mehrere aktive Meetings (mehr erfahren)"
+            ? String(localized: "menu.status.multiple_calls")
             : meetingState.statusDescription
         statusMenuItem?.isEnabled = multipleCalls
 
@@ -116,20 +116,20 @@ final class MenuBarController {
 
         muteMenuItem?.isEnabled = teamsRunning
         if meetingState.isMuted {
-            muteMenuItem?.title = "Mikrofon einschalten"
+            muteMenuItem?.title = String(localized: "menu.mic.unmute")
             muteMenuItem?.image = menuIcon("mic.fill")
         } else {
-            muteMenuItem?.title = "Mikrofon stumm"
+            muteMenuItem?.title = String(localized: "menu.mic.mute")
             muteMenuItem?.image = menuIcon("mic.slash.fill")
         }
         applyShortcut(.toggleMute, to: muteMenuItem)
 
         cameraMenuItem?.isEnabled = teamsRunning
         if meetingState.isCameraOn {
-            cameraMenuItem?.title = "Webcam aus"
+            cameraMenuItem?.title = String(localized: "menu.camera.off")
             cameraMenuItem?.image = menuIcon("video.slash.fill")
         } else {
-            cameraMenuItem?.title = "Webcam an"
+            cameraMenuItem?.title = String(localized: "menu.camera.on")
             cameraMenuItem?.image = menuIcon("video.fill")
         }
         applyShortcut(.toggleCamera, to: cameraMenuItem)
@@ -333,9 +333,9 @@ final class MenuBarController {
 
     @objc private func showMultipleCallsInfo() {
         let alert = NSAlert()
-        alert.messageText = "Du bist in mehreren Video-Calls gleichzeitig."
-        alert.informativeText = "ZackMute schaltet mit dem Kurzbefehl alle aktiven Calls gemeinsam stumm — oder reaktiviert sie gemeinsam. Das kann dazu führen, dass du in einem Call versehentlich stummgeschaltet bleibst oder unbemerkt zu hören bist."
-        alert.addButton(withTitle: "Verstanden")
+        alert.messageText = String(localized: "alert.multiple_calls.title")
+        alert.informativeText = String(localized: "alert.multiple_calls.message")
+        alert.addButton(withTitle: String(localized: "alert.button.ok"))
         alert.alertStyle = .informational
         alert.runModal()
     }

@@ -61,7 +61,7 @@ enum HotkeyManager {
     private static func notifySlackCameraUnsupported() {
         let content = UNMutableNotificationContent()
         content.title = "ZackMute"
-        content.body = "Webcam-Toggle wird von Slack Huddle nicht unterstützt."
+        content.body = String(localized: "notification.slack_camera_unsupported")
         let request = UNNotificationRequest(
             identifier: "slack-camera-unsupported",
             content: content,

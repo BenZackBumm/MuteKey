@@ -27,13 +27,13 @@ final class MeetingState: ObservableObject {
 
     var statusDescription: String {
         switch activeCallCount {
-        case 0: return "Kein aktives Meeting"
+        case 0: return String(localized: "status.no_meeting")
         case 1:
-            if isInMeeting    { return "Aktives Meeting: Teams" }
-            if isInSlackHuddle { return "Aktives Meeting: Slack" }
-            if isInZoomMeeting { return "Aktives Meeting: Zoom" }
-            return "Kein aktives Meeting"
-        default: return "Mehrere aktive Meetings"
+            if isInMeeting     { return String(localized: "status.active_meeting.teams") }
+            if isInSlackHuddle { return String(localized: "status.active_meeting.slack") }
+            if isInZoomMeeting { return String(localized: "status.active_meeting.zoom") }
+            return String(localized: "status.no_meeting")
+        default: return String(localized: "status.multiple_meetings")
         }
     }
 }
