@@ -1,5 +1,6 @@
 import AppKit
 import KeyboardShortcuts
+import Sparkle
 import UserNotifications
 
 // Entry point is main.swift — no @main / SwiftUI App protocol.
@@ -9,6 +10,7 @@ import UserNotifications
 class AppDelegate: NSObject, NSApplicationDelegate {
     let meetingState = MeetingState()
     let teamsConnector: TeamsConnector
+    let updateController = UpdateController()
     private var menuBarController: MenuBarController?
     private var statePoller: TeamsStatePoller?
     private var slackPoller: SlackStatePoller?
@@ -24,7 +26,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         menuBarController = MenuBarController(
             meetingState: meetingState,
-            teamsConnector: teamsConnector
+            teamsConnector: teamsConnector,
+            updateController: updateController
         )
         HotkeyManager.setup(teamsConnector: teamsConnector, meetingState: meetingState)
         teamsConnector.connect()

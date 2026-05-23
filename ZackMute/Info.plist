@@ -30,5 +30,11 @@
 	<true/>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUFeedURL</key>
+	<string>https://raw.githubusercontent.com/BenZackBumm/ZackMute/main/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>lIUaTMYuWk8FugUriDOxHv21VgX/ppVfOC8a9bV6SHU=</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
 </dict>
 </plist>

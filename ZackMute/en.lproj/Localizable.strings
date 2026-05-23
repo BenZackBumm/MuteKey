@@ -49,6 +49,10 @@
 "settings.about.description" = "Global shortcuts for microphone and camera in Teams, Slack, and Zoom.";
 "settings.about.developer" = "Developer";
 "settings.about.credits" = "Acknowledgements";
+"settings.about.update_available" = "Version %@ available";
+"settings.about.update_install" = "Install";
+"settings.about.update_check" = "Check for Updates";
+"settings.about.update_checking" = "Checking…";
 
 /* Notifications */
 "notification.slack_camera_unsupported" = "Camera toggle is not supported in Slack Huddle.";

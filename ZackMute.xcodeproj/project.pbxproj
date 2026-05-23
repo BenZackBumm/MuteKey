@@ -18,6 +18,7 @@
 		6D31D45C46FE94D152BC1E41 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D86C65F04BCFA4CC1EC65E /* SettingsWindowController.swift */; };
 		7BAC6C64D8686C40F0419E7C /* TeamsMuteAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32CB7F81397EE9CD22B85C /* TeamsMuteAction.swift */; };
 		AE391E624338FADCC941FBB3 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = D7CBA62EC9009741827DCC34 /* KeyboardShortcuts */; };
+		B5EA89242FC19210007FDC7B /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = B5EA89232FC19210007FDC7B /* Sparkle */; };
 		D536EDC9E79F748887225F57 /* MeetingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3313D8D7444F8FE4F0714416 /* MeetingState.swift */; };
 		D58BE28B6A767EB2D68A01CE /* SlackMuteAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD8BD36D3A5AABAFE69646E /* SlackMuteAction.swift */; };
 		D97C0FE66D0DF08C3F123AEA /* TeamsMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884CC1E2E570DC39AAC1A348 /* TeamsMessages.swift */; };
@@ -28,6 +29,7 @@
 		LC000004 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = LC000003 /* Localizable.strings */; };
 		WZ000003 /* WizardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = WZ000001 /* WizardView.swift */; };
 		WZ000004 /* WizardWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = WZ000002 /* WizardWindowController.swift */; };
+		UC000002 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = UC000001 /* UpdateController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,7 @@
 		LC000002 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		WZ000001 /* WizardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WizardView.swift; sourceTree = "<group>"; };
 		WZ000002 /* WizardWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WizardWindowController.swift; sourceTree = "<group>"; };
+		UC000001 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE391E624338FADCC941FBB3 /* KeyboardShortcuts in Frameworks */,
+				B5EA89242FC19210007FDC7B /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +135,7 @@
 				72CD01E18202DBE7A6FA633A /* Teams */,
 				FA0000000000000000000005 /* Zoom */,
 				WZ000005 /* Wizard */,
+				UC000005 /* Updates */,
 			);
 			path = ZackMute;
 			sourceTree = "<group>";
@@ -149,7 +154,6 @@
 			children = (
 				8E9F14A96F8462A1D1852DE4 /* ZackMute */,
 				5F752E599170E563DBC19A34 /* Products */,
-				B5DCF7762FC06FE0008EEEF5 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -171,6 +175,14 @@
 			path = Wizard;
 			sourceTree = "<group>";
 		};
+		UC000005 /* Updates */ = {
+			isa = PBXGroup;
+			children = (
+				UC000001 /* UpdateController.swift */,
+			);
+			path = Updates;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -189,6 +201,7 @@
 			name = ZackMute;
 			packageProductDependencies = (
 				D7CBA62EC9009741827DCC34 /* KeyboardShortcuts */,
+				B5EA89232FC19210007FDC7B /* Sparkle */,
 			);
 			productName = ZackMute;
 			productReference = 2E43BA3DDB4F73614C79EFC5 /* ZackMute.app */;
@@ -221,6 +234,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				267F82DDB26A464BC64F057C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				B5EA89222FC19210007FDC7B /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5F752E599170E563DBC19A34 /* Products */;
@@ -267,6 +281,7 @@
 				40041920753CBF9FB3F70F30 /* main.swift in Sources */,
 				WZ000003 /* WizardView.swift in Sources */,
 				WZ000004 /* WizardWindowController.swift in Sources */,
+				UC000002 /* UpdateController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,9 +493,22 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		B5EA89222FC19210007FDC7B /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B5EA89232FC19210007FDC7B /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5EA89222FC19210007FDC7B /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
 		D7CBA62EC9009741827DCC34 /* KeyboardShortcuts */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 267F82DDB26A464BC64F057C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;

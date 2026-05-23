@@ -49,6 +49,10 @@
 "settings.about.description" = "Globale Kurzbefehle für Mikrofon und Kamera in Teams, Slack und Zoom.";
 "settings.about.developer" = "Entwickler";
 "settings.about.credits" = "Danksagungen";
+"settings.about.update_available" = "Version %@ verfügbar";
+"settings.about.update_install" = "Installieren";
+"settings.about.update_check" = "Nach Updates suchen";
+"settings.about.update_checking" = "Suche…";
 
 /* Notifications */
 "notification.slack_camera_unsupported" = "Webcam-Toggle wird von Slack Huddle nicht unterstützt.";

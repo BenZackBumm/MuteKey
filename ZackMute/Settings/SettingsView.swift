@@ -199,6 +199,8 @@ struct SettingsView: View {
 // MARK: - About Tab
 
 struct AboutView: View {
+    @EnvironmentObject var updateController: UpdateController
+
     var body: some View {
         VStack(spacing: 20) {
             VStack(spacing: 8) {
@@ -213,6 +215,32 @@ struct AboutView: View {
                     .font(.subheadline)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
+            }
+
+            // Update status
+            if let newVersion = updateController.availableVersion {
+                HStack(spacing: 8) {
+                    Image(systemName: "arrow.down.circle.fill")
+                        .foregroundStyle(.blue)
+                    Text(String(format: String(localized: "settings.about.update_available"), newVersion))
+                    Spacer()
+                    Button(String(localized: "settings.about.update_install")) {
+                        updateController.checkForUpdates()
+                    }
+                    .controlSize(.small)
+                    .buttonStyle(.borderedProminent)
+                }
+                .padding(10)
+                .background(Color.blue.opacity(0.08))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            } else {
+                Button(updateController.isChecking
+                       ? String(localized: "settings.about.update_checking")
+                       : String(localized: "settings.about.update_check")) {
+                    updateController.checkForUpdates()
+                }
+                .disabled(updateController.isChecking)
+                .controlSize(.small)
             }
 
             Divider()
@@ -238,6 +266,9 @@ struct AboutView: View {
                 Text("settings.about.credits")
                     .font(.headline)
                 Text("KeyboardShortcuts — Sindre Sorhus")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                Text("Sparkle — Sparkle Project")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }

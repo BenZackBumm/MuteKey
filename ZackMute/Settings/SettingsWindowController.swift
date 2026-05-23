@@ -5,18 +5,19 @@ import SwiftUI
 final class SettingsWindowController: NSWindowController, NSWindowDelegate {
     private static var shared: SettingsWindowController?
 
-    static func show(meetingState: MeetingState, teamsConnector: TeamsConnector) {
+    static func show(meetingState: MeetingState, teamsConnector: TeamsConnector, updateController: UpdateController) {
         if shared == nil {
-            shared = SettingsWindowController(meetingState: meetingState, teamsConnector: teamsConnector)
+            shared = SettingsWindowController(meetingState: meetingState, teamsConnector: teamsConnector, updateController: updateController)
         }
         NSApp.activate(ignoringOtherApps: true)
         shared?.window?.makeKeyAndOrderFront(nil)
     }
 
-    private init(meetingState: MeetingState, teamsConnector: TeamsConnector) {
+    private init(meetingState: MeetingState, teamsConnector: TeamsConnector, updateController: UpdateController) {
         let rootView = SettingsView()
             .environmentObject(meetingState)
             .environmentObject(teamsConnector)
+            .environmentObject(updateController)
 
         // NSHostingView directly as contentView avoids the internal ScrollView
         // that NSHostingController wraps around its content.

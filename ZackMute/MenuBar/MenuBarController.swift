@@ -13,9 +13,12 @@ final class MenuBarController {
     private var cameraMenuItem: NSMenuItem?
     private var accessibilityMenuItem: NSMenuItem?
 
-    init(meetingState: MeetingState, teamsConnector: TeamsConnector) {
+    private let updateController: UpdateController
+
+    init(meetingState: MeetingState, teamsConnector: TeamsConnector, updateController: UpdateController) {
         self.meetingState = meetingState
         self.teamsConnector = teamsConnector
+        self.updateController = updateController
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         setupMenu()
         observeState()
@@ -355,7 +358,8 @@ final class MenuBarController {
     @objc private func openSettings() {
         SettingsWindowController.show(
             meetingState: meetingState,
-            teamsConnector: teamsConnector
+            teamsConnector: teamsConnector,
+            updateController: updateController
         )
     }
 
