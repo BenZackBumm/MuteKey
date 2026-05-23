@@ -6,21 +6,8 @@
         <description>ZackMute release feed</description>
         <language>en</language>
 
-        <!-- Latest release — update this block for each new version -->
-        <item>
-            <title>Version 0.9.0</title>
-            <pubDate>Fri, 23 May 2025 12:00:00 +0000</pubDate>
-            <sparkle:version>9</sparkle:version>
-            <sparkle:shortVersionString>0.9.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
-            <sparkle:releaseNotesLink>https://github.com/BenZackBumm/ZackMute/releases/tag/v0.9.0</sparkle:releaseNotesLink>
-            <enclosure
-                url="https://github.com/BenZackBumm/ZackMute/releases/download/v0.9.0/ZackMute.zip"
-                sparkle:edSignature="PLACEHOLDER_SIGNATURE"
-                length="0"
-                type="application/octet-stream"
-            />
-        </item>
+        <!-- Add <item> blocks here when releasing new versions.
+             Use scripts/sign_update.sh to generate the edSignature. -->
 
     </channel>
 </rss>

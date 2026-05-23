@@ -64,7 +64,7 @@ extension UpdateController: SPUStandardUserDriverDelegate {
     /// Signal to Sparkle that we handle gentle reminders ourselves (via the
     /// inline About-tab banner). This suppresses the "no gentle reminders"
     /// warning for LSUIElement / menu-bar apps.
-    var supportsGentleScheduledUpdateReminders: Bool { true }
+    nonisolated var supportsGentleScheduledUpdateReminders: Bool { true }
 
     /// Called for scheduled background checks. We already set `availableVersion`
     /// via SPUUpdaterDelegate, so the About-tab banner is our reminder.

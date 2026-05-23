@@ -31,7 +31,7 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/BenZackBumm/ZackMute/main/appcast.xml</string>
+<string>https://gist.githubusercontent.com/BenZackBumm/2ad0f52c41bb8df456701da6eba92bc8/raw/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>lIUaTMYuWk8FugUriDOxHv21VgX/ppVfOC8a9bV6SHU=</string>
 	<key>SUEnableAutomaticChecks</key>
