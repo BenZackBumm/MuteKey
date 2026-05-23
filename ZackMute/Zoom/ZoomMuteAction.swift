@@ -9,18 +9,32 @@ import AppKit
 enum ZoomMuteAction {
     @MainActor
     static func toggleMic() {
-        guard let zoom = findZoom() else { print("[ZackMute] Zoom not running"); return }
+        guard let zoom = findZoom() else {
+            #if DEBUG
+            print("[ZackMute] Zoom not running")
+            #endif
+            return
+        }
         // Cmd+Shift+A
         sendGlobal(key: 0x00, flags: [.maskCommand, .maskShift], to: zoom.processIdentifier)
+        #if DEBUG
         print("[ZackMute] Zoom mic: sent Cmd+Shift+A")
+        #endif
     }
 
     @MainActor
     static func toggleCamera() {
-        guard let zoom = findZoom() else { print("[ZackMute] Zoom not running"); return }
+        guard let zoom = findZoom() else {
+            #if DEBUG
+            print("[ZackMute] Zoom not running")
+            #endif
+            return
+        }
         // Cmd+Shift+V
         sendGlobal(key: 0x09, flags: [.maskCommand, .maskShift], to: zoom.processIdentifier)
+        #if DEBUG
         print("[ZackMute] Zoom camera: sent Cmd+Shift+V")
+        #endif
     }
 
     @MainActor
@@ -36,8 +50,7 @@ enum ZoomMuteAction {
     @MainActor
     private static func findZoom() -> NSRunningApplication? {
         NSWorkspace.shared.runningApplications.first {
-            $0.bundleIdentifier == "us.zoom.xos" ||
-            ($0.localizedName?.lowercased().contains("zoom") == true)
+            $0.bundleIdentifier == "us.zoom.xos"
         }
     }
 

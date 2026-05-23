@@ -5,10 +5,17 @@ enum TeamsMuteAction {
     @MainActor
     static func toggleCamera() {
         guard AXIsProcessTrusted() else { requestAccessibility(); return }
-        guard let teams = findTeams() else { print("[ZackMute] Teams not running"); return }
+        guard let teams = findTeams() else {
+            #if DEBUG
+            print("[ZackMute] Teams not running")
+            #endif
+            return
+        }
         // Cmd+Shift+O toggles camera in Teams
         sendKey(0x1F, flags: [.maskCommand, .maskShift], to: teams.processIdentifier)
+        #if DEBUG
         print("[ZackMute] Cmd+Shift+O sent to Teams pid \(teams.processIdentifier)")
+        #endif
     }
 
     @MainActor
@@ -19,7 +26,9 @@ enum TeamsMuteAction {
         }
 
         guard let teams = findTeams() else {
+            #if DEBUG
             print("[ZackMute] Teams not running")
+            #endif
             return
         }
 
@@ -50,8 +59,7 @@ enum TeamsMuteAction {
     private static func findTeams() -> NSRunningApplication? {
         NSWorkspace.shared.runningApplications.first {
             $0.bundleIdentifier == "com.microsoft.teams2" ||
-            $0.bundleIdentifier == "com.microsoft.teams" ||
-            ($0.localizedName?.lowercased().contains("teams") == true)
+            $0.bundleIdentifier == "com.microsoft.teams"
         }
     }
 
@@ -68,6 +76,8 @@ enum TeamsMuteAction {
 
     private static func sendCmdShiftM(to pid: pid_t) {
         sendKey(0x2E, flags: [.maskCommand, .maskShift], to: pid)
+        #if DEBUG
         print("[ZackMute] Cmd+Shift+M sent to Teams pid \(pid)")
+        #endif
     }
 }

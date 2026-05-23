@@ -9,10 +9,17 @@ import AppKit
 enum SlackMuteAction {
     @MainActor
     static func toggle() {
-        guard let slack = findSlack() else { print("[ZackMute] Slack not running"); return }
+        guard let slack = findSlack() else {
+            #if DEBUG
+            print("[ZackMute] Slack not running")
+            #endif
+            return
+        }
         // Cmd+Shift+Space  (kVK_Space = 0x31)
         sendGlobal(key: 0x31, flags: [.maskCommand, .maskShift], to: slack.processIdentifier)
+        #if DEBUG
         print("[ZackMute] Slack mute: sent Cmd+Shift+Space")
+        #endif
     }
 
 @MainActor
@@ -26,8 +33,7 @@ enum SlackMuteAction {
     @MainActor
     private static func findSlack() -> NSRunningApplication? {
         NSWorkspace.shared.runningApplications.first {
-            $0.bundleIdentifier == "com.tinyspeck.slackmacgap" ||
-            ($0.localizedName?.lowercased().contains("slack") == true)
+            $0.bundleIdentifier == "com.tinyspeck.slackmacgap"
         }
     }
 
