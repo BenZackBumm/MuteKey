@@ -4,21 +4,21 @@ import AppKit
 //   Mic toggle: Cmd+Shift+Space  — works even when Slack is in the background
 //
 // Camera toggle: Slack Huddle has no keyboard shortcut for this.
-// ZackMute shows a notification instead of silently doing nothing.
+// MuteKey shows a notification instead of silently doing nothing.
 
 enum SlackMuteAction {
     @MainActor
     static func toggle() {
         guard let slack = findSlack() else {
             #if DEBUG
-            print("[ZackMute] Slack not running")
+            print("[MuteKey] Slack not running")
             #endif
             return
         }
         // Cmd+Shift+Space  (kVK_Space = 0x31)
         sendGlobal(key: 0x31, flags: [.maskCommand, .maskShift], to: slack.processIdentifier)
         #if DEBUG
-        print("[ZackMute] Slack mute: sent Cmd+Shift+Space")
+        print("[MuteKey] Slack mute: sent Cmd+Shift+Space")
         #endif
     }
 

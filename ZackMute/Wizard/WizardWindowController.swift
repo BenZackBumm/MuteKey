@@ -21,7 +21,7 @@ final class WizardWindowController: NSWindowController, NSWindowDelegate {
             backing: .buffered,
             defer: false
         )
-        window.title = "ZackMute"
+        window.title = "MuteKey"
         window.contentView = NSHostingView(rootView: WizardView())
         window.center()
 

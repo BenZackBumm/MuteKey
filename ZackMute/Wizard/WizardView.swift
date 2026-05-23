@@ -221,7 +221,7 @@ private struct LaunchAtLoginStepView: View {
             if enabled { try SMAppService.mainApp.register() }
             else        { try SMAppService.mainApp.unregister() }
         } catch {
-            print("[ZackMute] Wizard launch-at-login error: \(error)")
+            print("[MuteKey] Wizard launch-at-login error: \(error)")
         }
     }
 }

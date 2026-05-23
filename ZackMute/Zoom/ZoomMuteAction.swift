@@ -11,14 +11,14 @@ enum ZoomMuteAction {
     static func toggleMic() {
         guard let zoom = findZoom() else {
             #if DEBUG
-            print("[ZackMute] Zoom not running")
+            print("[MuteKey] Zoom not running")
             #endif
             return
         }
         // Cmd+Shift+A
         sendGlobal(key: 0x00, flags: [.maskCommand, .maskShift], to: zoom.processIdentifier)
         #if DEBUG
-        print("[ZackMute] Zoom mic: sent Cmd+Shift+A")
+        print("[MuteKey] Zoom mic: sent Cmd+Shift+A")
         #endif
     }
 
@@ -26,14 +26,14 @@ enum ZoomMuteAction {
     static func toggleCamera() {
         guard let zoom = findZoom() else {
             #if DEBUG
-            print("[ZackMute] Zoom not running")
+            print("[MuteKey] Zoom not running")
             #endif
             return
         }
         // Cmd+Shift+V
         sendGlobal(key: 0x09, flags: [.maskCommand, .maskShift], to: zoom.processIdentifier)
         #if DEBUG
-        print("[ZackMute] Zoom camera: sent Cmd+Shift+V")
+        print("[MuteKey] Zoom camera: sent Cmd+Shift+V")
         #endif
     }
 

@@ -87,9 +87,9 @@ final class TeamsConnector: ObservableObject {
         components.queryItems = [
             URLQueryItem(name: "token", value: token),
             URLQueryItem(name: "protocol-version", value: "2.0.0"),
-            URLQueryItem(name: "manufacturer", value: "ZackMute"),
+            URLQueryItem(name: "manufacturer", value: "MuteKey"),
             URLQueryItem(name: "device", value: "Mac"),
-            URLQueryItem(name: "app", value: "ZackMute"),
+            URLQueryItem(name: "app", value: "MuteKey"),
             URLQueryItem(name: "app-version", value: appVersion),
         ]
         return components.url
@@ -118,7 +118,7 @@ final class TeamsConnector: ObservableObject {
               let data = text.data(using: .utf8) else { return }
 
         #if DEBUG
-        print("[ZackMute] Received: \(text)")
+        print("[MuteKey] Received: \(text)")
         #endif
 
         do {
@@ -126,7 +126,7 @@ final class TeamsConnector: ObservableObject {
 
             if let token = decoded.tokenRefresh, !token.isEmpty {
                 #if DEBUG
-                print("[ZackMute] Token received and saved")
+                print("[MuteKey] Token received and saved")
                 #endif
                 saveToken(token)
             }
@@ -138,20 +138,20 @@ final class TeamsConnector: ObservableObject {
                     if let muted = ms.isMuted { state.isMuted = muted }
                     if let videoOn = ms.isVideoOn { state.isCameraOn = videoOn }
                     #if DEBUG
-                    print("[ZackMute] State: inMeeting=\(ms.isInMeeting as Any) isMuted=\(ms.isMuted as Any) videoOn=\(ms.isVideoOn as Any)")
+                    print("[MuteKey] State: inMeeting=\(ms.isInMeeting as Any) isMuted=\(ms.isMuted as Any) videoOn=\(ms.isVideoOn as Any)")
                     #endif
                 }
                 if let perms = update.meetingPermissions {
                     if let canMute = perms.canToggleMute { state.canToggleMute = canMute }
                     if let canVideo = perms.canToggleVideo { state.canToggleVideo = canVideo }
                     #if DEBUG
-                    print("[ZackMute] Permissions: canToggleMute=\(perms.canToggleMute as Any) canToggleVideo=\(perms.canToggleVideo as Any)")
+                    print("[MuteKey] Permissions: canToggleMute=\(perms.canToggleMute as Any) canToggleVideo=\(perms.canToggleVideo as Any)")
                     #endif
                 }
             }
         } catch {
             #if DEBUG
-            print("[ZackMute] Decode error: \(error) — raw: \(text)")
+            print("[MuteKey] Decode error: \(error) — raw: \(text)")
             #endif
         }
     }

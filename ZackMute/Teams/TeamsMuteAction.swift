@@ -7,14 +7,14 @@ enum TeamsMuteAction {
         guard AXIsProcessTrusted() else { requestAccessibility(); return }
         guard let teams = findTeams() else {
             #if DEBUG
-            print("[ZackMute] Teams not running")
+            print("[MuteKey] Teams not running")
             #endif
             return
         }
         // Cmd+Shift+O toggles camera in Teams
         sendKey(0x1F, flags: [.maskCommand, .maskShift], to: teams.processIdentifier)
         #if DEBUG
-        print("[ZackMute] Cmd+Shift+O sent to Teams pid \(teams.processIdentifier)")
+        print("[MuteKey] Cmd+Shift+O sent to Teams pid \(teams.processIdentifier)")
         #endif
     }
 
@@ -27,7 +27,7 @@ enum TeamsMuteAction {
 
         guard let teams = findTeams() else {
             #if DEBUG
-            print("[ZackMute] Teams not running")
+            print("[MuteKey] Teams not running")
             #endif
             return
         }
@@ -77,7 +77,7 @@ enum TeamsMuteAction {
     private static func sendCmdShiftM(to pid: pid_t) {
         sendKey(0x2E, flags: [.maskCommand, .maskShift], to: pid)
         #if DEBUG
-        print("[ZackMute] Cmd+Shift+M sent to Teams pid \(pid)")
+        print("[MuteKey] Cmd+Shift+M sent to Teams pid \(pid)")
         #endif
     }
 }

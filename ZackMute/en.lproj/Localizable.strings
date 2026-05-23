@@ -5,13 +5,13 @@
 "menu.camera.off" = "Turn Off Camera";
 "menu.camera.on" = "Turn On Camera";
 "menu.settings" = "Settings…";
-"menu.quit" = "Quit ZackMute";
+"menu.quit" = "Quit MuteKey";
 "menu.accessibility.request" = "⚠️ Allow Accessibility…";
 "menu.status.multiple_calls" = "Caution: Multiple Active Meetings (learn more)";
 
 /* Alert: multiple calls */
 "alert.multiple_calls.title" = "You are in multiple video calls at the same time.";
-"alert.multiple_calls.message" = "ZackMute mutes or unmutes all active calls together when you use the keyboard shortcut. This can cause you to accidentally stay muted in one call, or be heard without realizing it.";
+"alert.multiple_calls.message" = "MuteKey mutes or unmutes all active calls together when you use the keyboard shortcut. This can cause you to accidentally stay muted in one call, or be heard without realizing it.";
 "alert.button.ok" = "OK";
 
 /* Meeting status */
@@ -38,7 +38,7 @@
 "status.in_meeting" = "In Meeting";
 "status.not_connected" = "Not Connected";
 "settings.teams.reset_button" = "Reset";
-"settings.teams.setup_hint" = "One-time setup: Teams → Settings → Privacy → enable \"Third-party app API\". ZackMute will connect automatically at the start of your next meeting.";
+"settings.teams.setup_hint" = "One-time setup: Teams → Settings → Privacy → enable \"Third-party app API\". MuteKey will connect automatically at the start of your next meeting.";
 "settings.connections.multiple_calls_hint" = "Note: When multiple video calls are active, the shortcut toggles all of them together. This may cause unintended behavior.";
 
 /* Settings — Tabs */
@@ -62,11 +62,11 @@
 "wizard.back" = "Back";
 "wizard.done" = "Done";
 
-"wizard.welcome.title" = "Welcome to ZackMute";
+"wizard.welcome.title" = "Welcome to MuteKey";
 "wizard.welcome.subtitle" = "Global shortcuts for microphone and camera in Teams, Slack, and Zoom.";
 
 "wizard.accessibility.title" = "Allow Accessibility Access";
-"wizard.accessibility.description" = "ZackMute needs Accessibility access to perform mute actions in Teams.";
+"wizard.accessibility.description" = "MuteKey needs Accessibility access to perform mute actions in Teams.";
 "wizard.accessibility.granted" = "Access granted";
 "wizard.accessibility.denied" = "Access not granted";
 
@@ -74,10 +74,10 @@
 "wizard.shortcuts.description" = "Set global shortcuts that work in any meeting.";
 
 "wizard.teams.title" = "Set Up Teams";
-"wizard.teams.description" = "One-time setup: in MS Teams, go to _Settings → Privacy_ and enable \"Third-party app API\". ZackMute will connect automatically when your next meeting starts.";
+"wizard.teams.description" = "One-time setup: in MS Teams, go to _Settings → Privacy_ and enable \"Third-party app API\". MuteKey will connect automatically when your next meeting starts.";
 
 "wizard.login.title" = "Launch at Login";
-"wizard.login.description" = "Automatically start ZackMute when you log in.";
+"wizard.login.description" = "Automatically start MuteKey when you log in.";
 
-"wizard.done.title" = "ZackMute is Ready!";
+"wizard.done.title" = "MuteKey is Ready!";
 "wizard.done.description" = "The app icon appears in the menu bar. Use your shortcut to control your microphone and camera.";

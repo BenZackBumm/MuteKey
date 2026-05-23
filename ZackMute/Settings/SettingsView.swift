@@ -145,7 +145,7 @@ struct SettingsView: View {
                 try SMAppService.mainApp.unregister()
             }
         } catch {
-            print("[ZackMute] Launch at login error: \(error)")
+            print("[MuteKey] Launch at login error: \(error)")
         }
     }
 
@@ -207,7 +207,7 @@ struct AboutView: View {
                 Image(nsImage: NSImage(named: NSImage.applicationIconName) ?? NSImage())
                     .resizable()
                     .frame(width: 80, height: 80)
-                Text("ZackMute")
+                Text("MuteKey")
                     .font(.title2).bold()
                 Text("Version \(appVersion)")
                     .foregroundStyle(.secondary)

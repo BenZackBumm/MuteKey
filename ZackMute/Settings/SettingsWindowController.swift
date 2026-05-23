@@ -30,7 +30,7 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
             backing: .buffered,
             defer: false
         )
-        window.title = "ZackMute"
+        window.title = "MuteKey"
         window.contentView = hostingView
         window.center()
 

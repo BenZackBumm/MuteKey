@@ -60,7 +60,7 @@ enum HotkeyManager {
 
     private static func notifySlackCameraUnsupported() {
         let content = UNMutableNotificationContent()
-        content.title = "ZackMute"
+        content.title = "MuteKey"
         content.body = String(localized: "notification.slack_camera_unsupported")
         let request = UNNotificationRequest(
             identifier: "slack-camera-unsupported",
