@@ -44,4 +44,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             WizardWindowController.showIfNeeded()
         }
     }
+
 }

@@ -9,6 +9,7 @@ final class MenuBarController {
     private let teamsConnector: TeamsConnector
     private var cancellables = Set<AnyCancellable>()
     private var statusMenuItem: NSMenuItem?
+    private var actionSeparator: NSMenuItem?
     private var muteMenuItem: NSMenuItem?
     private var cameraMenuItem: NSMenuItem?
     private var accessibilityMenuItem: NSMenuItem?
@@ -37,7 +38,9 @@ final class MenuBarController {
         menu.addItem(statusItem)
         self.statusMenuItem = statusItem
 
-        menu.addItem(.separator())
+        let separator = NSMenuItem.separator()
+        menu.addItem(separator)
+        self.actionSeparator = separator
 
         let muteItem = NSMenuItem(
             title: String(localized: "menu.mute"),
@@ -115,24 +118,48 @@ final class MenuBarController {
         // Show accessibility warning only when permission is missing
         accessibilityMenuItem?.isHidden = AXIsProcessTrusted()
 
-        let teamsRunning = TeamsMuteAction.isTeamsRunning
+        let isInCall      = meetingState.activeCallCount >= 1
+        let slackOnly     = meetingState.isInSlackHuddle && !meetingState.isInMeeting && !meetingState.isInZoomMeeting
 
-        muteMenuItem?.isEnabled = teamsRunning
-        if meetingState.isMuted {
-            muteMenuItem?.title = String(localized: "menu.mic.unmute")
-            muteMenuItem?.image = menuIcon("mic.fill")
+        // Hide both buttons (and the separator above them) when no meeting is active
+        actionSeparator?.isHidden = !isInCall
+        muteMenuItem?.isHidden    = !isInCall
+        cameraMenuItem?.isHidden  = !isInCall
+
+        guard isInCall else { return }
+
+        // Mic: always enabled when any call is active.
+        // Show on/off only when we know the real state (Enterprise Teams or Zoom solo).
+        // Show "toggle" for Slack, Personal Teams, or multiple apps.
+        muteMenuItem?.isEnabled = true
+        let micStateKnown = (meetingState.isInMeeting && meetingState.canToggleMute && !slackOnly && meetingState.activeCallCount == 1)
+                         || (meetingState.isInZoomMeeting && !meetingState.isInMeeting && !meetingState.isInSlackHuddle)
+        if micStateKnown {
+            let muted = meetingState.isInZoomMeeting && !meetingState.isInMeeting
+                      ? meetingState.isZoomMuted : meetingState.isMuted
+            muteMenuItem?.title = muted
+                ? String(localized: "menu.mic.on")
+                : String(localized: "menu.mic.off")
+            muteMenuItem?.image = menuIcon(muted ? "mic.fill" : "mic.slash.fill")
         } else {
-            muteMenuItem?.title = String(localized: "menu.mic.mute")
+            muteMenuItem?.title = String(localized: "menu.mic.toggle")
             muteMenuItem?.image = menuIcon("mic.slash.fill")
         }
         applyShortcut(.toggleMute, to: muteMenuItem)
 
-        cameraMenuItem?.isEnabled = teamsRunning
-        if meetingState.isCameraOn {
-            cameraMenuItem?.title = String(localized: "menu.camera.off")
-            cameraMenuItem?.image = menuIcon("video.slash.fill")
+        // Camera: disabled for Slack-only. Show on/off only when state is known.
+        cameraMenuItem?.isEnabled = !slackOnly
+        let camStateKnown = (meetingState.isInMeeting && meetingState.canToggleVideo && !slackOnly && meetingState.activeCallCount == 1)
+                         || (meetingState.isInZoomMeeting && !meetingState.isInMeeting && !meetingState.isInSlackHuddle)
+        if camStateKnown {
+            let cameraOn = meetingState.isInZoomMeeting && !meetingState.isInMeeting
+                         ? meetingState.isZoomCameraOn : meetingState.isCameraOn
+            cameraMenuItem?.title = cameraOn
+                ? String(localized: "menu.camera.off")
+                : String(localized: "menu.camera.on")
+            cameraMenuItem?.image = menuIcon(cameraOn ? "video.slash.fill" : "video.fill")
         } else {
-            cameraMenuItem?.title = String(localized: "menu.camera.on")
+            cameraMenuItem?.title = String(localized: "menu.camera.toggle")
             cameraMenuItem?.image = menuIcon("video.fill")
         }
         applyShortcut(.toggleCamera, to: cameraMenuItem)
@@ -344,11 +371,11 @@ final class MenuBarController {
     }
 
     @objc private func toggleMute() {
-        teamsConnector.toggleMute()
+        HotkeyManager.performToggleMute(teamsConnector: teamsConnector, meetingState: meetingState)
     }
 
     @objc private func toggleCamera() {
-        teamsConnector.toggleCamera()
+        HotkeyManager.performToggleCamera(teamsConnector: teamsConnector, meetingState: meetingState)
     }
 
     @objc private func requestAccessibility() {

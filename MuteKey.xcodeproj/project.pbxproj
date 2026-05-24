@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0433927A388D32CF2B2F9651 /* ZackMuteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA3B5FB9C9D9D2575138DD /* ZackMuteApp.swift */; };
+		0433927A388D32CF2B2F9651 /* MuteKeyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA3B5FB9C9D9D2575138DD /* MuteKeyApp.swift */; };
 		0532AFE690C21DFB029408F7 /* StatusMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD6467D54B086E3A7D7608 /* StatusMenuView.swift */; };
 		05F64FD70E076423DAB195B1 /* TeamsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9560086A15272B67EA9BA937 /* TeamsConnector.swift */; };
 		16D7A5F52C89877EC9E8AD73 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B98FB6BAD58A276208DB3F /* HotkeyManager.swift */; };
@@ -34,7 +34,7 @@
 
 /* Begin PBXFileReference section */
 		13B2684C5B6B19C2BC48C0CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2E43BA3DDB4F73614C79EFC5 /* ZackMute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZackMute.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E43BA3DDB4F73614C79EFC5 /* MuteKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuteKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3313D8D7444F8FE4F0714416 /* MeetingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingState.swift; sourceTree = "<group>"; };
 		334BB248EF48DE87B2E46803 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		37D86C65F04BCFA4CC1EC65E /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
@@ -42,14 +42,14 @@
 		5EEEC946BC41858AA6AC74ED /* TeamsStatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsStatePoller.swift; sourceTree = "<group>"; };
 		68B98FB6BAD58A276208DB3F /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
 		72E39BCC9215EDC0181B7404 /* SlackStatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlackStatePoller.swift; sourceTree = "<group>"; };
-		84DA3B5FB9C9D9D2575138DD /* ZackMuteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZackMuteApp.swift; sourceTree = "<group>"; };
+		84DA3B5FB9C9D9D2575138DD /* MuteKeyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuteKeyApp.swift; sourceTree = "<group>"; };
 		884CC1E2E570DC39AAC1A348 /* TeamsMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsMessages.swift; sourceTree = "<group>"; };
 		89DAA5BBCED44A3148C98F4B /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
 		9560086A15272B67EA9BA937 /* TeamsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsConnector.swift; sourceTree = "<group>"; };
 		ABD8BD36D3A5AABAFE69646E /* SlackMuteAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlackMuteAction.swift; sourceTree = "<group>"; };
 		AD65DE54A74E2408B639CE89 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		BDFD6467D54B086E3A7D7608 /* StatusMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuView.swift; sourceTree = "<group>"; };
-		CD69489F45BD1B19EF82F4B4 /* ZackMute.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZackMute.entitlements; sourceTree = "<group>"; };
+		CD69489F45BD1B19EF82F4B4 /* MuteKey.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MuteKey.entitlements; sourceTree = "<group>"; };
 		EE32CB7F81397EE9CD22B85C /* TeamsMuteAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsMuteAction.swift; sourceTree = "<group>"; };
 		FA0000000000000000000002 /* ZoomMuteAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomMuteAction.swift; sourceTree = "<group>"; };
 		FA0000000000000000000004 /* ZoomStatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomStatePoller.swift; sourceTree = "<group>"; };
@@ -94,7 +94,7 @@
 		5F752E599170E563DBC19A34 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E43BA3DDB4F73614C79EFC5 /* ZackMute.app */,
+				2E43BA3DDB4F73614C79EFC5 /* MuteKey.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,15 +119,15 @@
 			path = Teams;
 			sourceTree = "<group>";
 		};
-		8E9F14A96F8462A1D1852DE4 /* ZackMute */ = {
+		8E9F14A96F8462A1D1852DE4 /* MuteKey */ = {
 			isa = PBXGroup;
 			children = (
 				LC000003 /* Localizable.strings */,
 				13B2684C5B6B19C2BC48C0CA /* Assets.xcassets */,
 				5C51CE94E5307EB7E6118DCB /* Info.plist */,
 				334BB248EF48DE87B2E46803 /* main.swift */,
-				CD69489F45BD1B19EF82F4B4 /* ZackMute.entitlements */,
-				84DA3B5FB9C9D9D2575138DD /* ZackMuteApp.swift */,
+				CD69489F45BD1B19EF82F4B4 /* MuteKey.entitlements */,
+				84DA3B5FB9C9D9D2575138DD /* MuteKeyApp.swift */,
 				5FB891310D35606C8D719AD9 /* Hotkey */,
 				462C8C4C295D05172DAF34CE /* MenuBar */,
 				C064C2711F1ECB90BA86A029 /* Settings */,
@@ -137,7 +137,7 @@
 				WZ000005 /* Wizard */,
 				UC000005 /* Updates */,
 			);
-			path = ZackMute;
+			path = MuteKey;
 			sourceTree = "<group>";
 		};
 		C064C2711F1ECB90BA86A029 /* Settings */ = {
@@ -152,7 +152,7 @@
 		CFF8E79BE04C82B20311F2E7 = {
 			isa = PBXGroup;
 			children = (
-				8E9F14A96F8462A1D1852DE4 /* ZackMute */,
+				8E9F14A96F8462A1D1852DE4 /* MuteKey */,
 				5F752E599170E563DBC19A34 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -186,9 +186,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0908E8C454EB0A05BC0C67C3 /* ZackMute */ = {
+		0908E8C454EB0A05BC0C67C3 /* MuteKey */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 52165F1497C1C332CD016A3F /* Build configuration list for PBXNativeTarget "ZackMute" */;
+			buildConfigurationList = 52165F1497C1C332CD016A3F /* Build configuration list for PBXNativeTarget "MuteKey" */;
 			buildPhases = (
 				95D1719114DA4D66D84AE756 /* Sources */,
 				607109B31559962D21DFC913 /* Resources */,
@@ -198,13 +198,13 @@
 			);
 			dependencies = (
 			);
-			name = ZackMute;
+			name = MuteKey;
 			packageProductDependencies = (
 				D7CBA62EC9009741827DCC34 /* KeyboardShortcuts */,
 				B5EA89232FC19210007FDC7B /* Sparkle */,
 			);
-			productName = ZackMute;
-			productReference = 2E43BA3DDB4F73614C79EFC5 /* ZackMute.app */;
+			productName = MuteKey;
+			productReference = 2E43BA3DDB4F73614C79EFC5 /* MuteKey.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -222,7 +222,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AF657BC6C31D257CFBB00CDD /* Build configuration list for PBXProject "ZackMute" */;
+			buildConfigurationList = AF657BC6C31D257CFBB00CDD /* Build configuration list for PBXProject "MuteKey" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -241,7 +241,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0908E8C454EB0A05BC0C67C3 /* ZackMute */,
+				0908E8C454EB0A05BC0C67C3 /* MuteKey */,
 			);
 		};
 /* End PBXProject section */
@@ -277,7 +277,7 @@
 				D97C0FE66D0DF08C3F123AEA /* TeamsMessages.swift in Sources */,
 				7BAC6C64D8686C40F0419E7C /* TeamsMuteAction.swift in Sources */,
 				E59DEDA4AA9DD53315C51872 /* TeamsStatePoller.swift in Sources */,
-				0433927A388D32CF2B2F9651 /* ZackMuteApp.swift in Sources */,
+				0433927A388D32CF2B2F9651 /* MuteKeyApp.swift in Sources */,
 				40041920753CBF9FB3F70F30 /* main.swift in Sources */,
 				WZ000003 /* WizardView.swift in Sources */,
 				WZ000004 /* WizardWindowController.swift in Sources */,
@@ -429,16 +429,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ZackMute/ZackMute.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MuteKey/MuteKey.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = ZackMute/Info.plist;
+				INFOPLIST_FILE = MuteKey/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = de.benkrammer.ZackMute;
-				PRODUCT_NAME = ZackMute;
+				PRODUCT_BUNDLE_IDENTIFIER = de.benkrammer.MuteKey;
+				PRODUCT_NAME = MuteKey;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -447,16 +447,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ZackMute/ZackMute.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MuteKey/MuteKey.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = ZackMute/Info.plist;
+				INFOPLIST_FILE = MuteKey/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = de.benkrammer.ZackMute;
-				PRODUCT_NAME = ZackMute;
+				PRODUCT_BUNDLE_IDENTIFIER = de.benkrammer.MuteKey;
+				PRODUCT_NAME = MuteKey;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -464,7 +464,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		52165F1497C1C332CD016A3F /* Build configuration list for PBXNativeTarget "ZackMute" */ = {
+		52165F1497C1C332CD016A3F /* Build configuration list for PBXNativeTarget "MuteKey" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				47C1743A41EDE0D4B12628D8 /* Debug */,
@@ -473,7 +473,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		AF657BC6C31D257CFBB00CDD /* Build configuration list for PBXProject "ZackMute" */ = {
+		AF657BC6C31D257CFBB00CDD /* Build configuration list for PBXProject "MuteKey" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0C4AB4A046A9363707AC1005 /* Debug */,

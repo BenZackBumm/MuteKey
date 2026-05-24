@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0908E8C454EB0A05BC0C67C3"
-               BuildableName = "ZackMute.app"
-               BlueprintName = "ZackMute"
-               ReferencedContainer = "container:ZackMute.xcodeproj">
+               BuildableName = "MuteKey.app"
+               BlueprintName = "MuteKey"
+               ReferencedContainer = "container:MuteKey.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0908E8C454EB0A05BC0C67C3"
-            BuildableName = "ZackMute.app"
-            BlueprintName = "ZackMute"
-            ReferencedContainer = "container:ZackMute.xcodeproj">
+            BuildableName = "MuteKey.app"
+            BlueprintName = "MuteKey"
+            ReferencedContainer = "container:MuteKey.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0908E8C454EB0A05BC0C67C3"
-            BuildableName = "ZackMute.app"
-            BlueprintName = "ZackMute"
-            ReferencedContainer = "container:ZackMute.xcodeproj">
+            BuildableName = "MuteKey.app"
+            BlueprintName = "MuteKey"
+            ReferencedContainer = "container:MuteKey.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

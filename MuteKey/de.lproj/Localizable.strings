@@ -1,9 +1,10 @@
 /* MenuBar */
-"menu.mute" = "Stummschalten";
-"menu.mic.mute" = "Mikrofon stumm";
-"menu.mic.unmute" = "Mikrofon einschalten";
+"menu.mic.off" = "Mikro aus";
+"menu.mic.on" = "Mikro an";
+"menu.mic.toggle" = "Mikro umschalten";
 "menu.camera.off" = "Webcam aus";
 "menu.camera.on" = "Webcam an";
+"menu.camera.toggle" = "Webcam umschalten";
 "menu.settings" = "Einstellungen…";
 "menu.quit" = "MuteKey beenden";
 "menu.accessibility.request" = "⚠️ Bedienungshilfen erlauben…";

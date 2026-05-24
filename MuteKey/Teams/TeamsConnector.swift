@@ -8,7 +8,7 @@ final class TeamsConnector: ObservableObject {
     private var reconnectDelay: TimeInterval = 1
     private var shouldReconnect = true
 
-    private static let userDefaultsKey = "de.benkrammer.ZackMute.TeamsToken"
+    private static let userDefaultsKey = "de.benkrammer.MuteKey.TeamsToken"
 
     init(state: MeetingState) {
         self.state = state

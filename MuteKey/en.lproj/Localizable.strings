@@ -1,9 +1,10 @@
 /* MenuBar */
-"menu.mute" = "Mute Microphone";
-"menu.mic.mute" = "Mute Microphone";
-"menu.mic.unmute" = "Unmute Microphone";
+"menu.mic.off" = "Mute Mic";
+"menu.mic.on" = "Unmute Mic";
+"menu.mic.toggle" = "Toggle Mic";
 "menu.camera.off" = "Turn Off Camera";
 "menu.camera.on" = "Turn On Camera";
+"menu.camera.toggle" = "Toggle Camera";
 "menu.settings" = "Settings…";
 "menu.quit" = "Quit MuteKey";
 "menu.accessibility.request" = "⚠️ Allow Accessibility…";
