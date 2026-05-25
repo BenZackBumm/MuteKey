@@ -89,14 +89,16 @@ echo "  ✅ Stapled"
 echo ""
 echo "▶ Step 5/6: Creating release DMG..."
 
-TMP_DMG="/tmp/MuteKey-installer.dmg"
+TMP_DMG="/tmp/MuteKey-installer"
 VOLUME_NAME="MuteKey"
 
-# Create writable DMG
-hdiutil create -size 100m -volname "$VOLUME_NAME" -fs HFS+ -format UDRW -ov "$TMP_DMG"
+# Create writable DMG (hdiutil appends .dmg automatically)
+hdiutil detach "/Volumes/$VOLUME_NAME" 2>/dev/null || true
+rm -f "${TMP_DMG}.dmg"
+hdiutil create -size 100m -volname "$VOLUME_NAME" -fs HFS+ "$TMP_DMG"
 
 # Mount it
-MOUNT_DEV=$(hdiutil attach -readwrite -noverify -noautoopen "$TMP_DMG" | grep "^/dev/" | awk 'NR==1 {print $1}')
+MOUNT_DEV=$(hdiutil attach -readwrite -noverify -noautoopen "${TMP_DMG}.dmg" | grep "^/dev/" | awk 'NR==1 {print $1}')
 MOUNT_POINT="/Volumes/$VOLUME_NAME"
 
 # Copy app and add Applications symlink
@@ -129,8 +131,8 @@ APPLESCRIPT
 chmod -Rf go-w "$MOUNT_POINT"
 sync
 hdiutil detach "$MOUNT_DEV"
-hdiutil convert "$TMP_DMG" -format UDZO -imagekey zlib-level=9 -o "$ROOT_DIR/$DMG_NAME"
-rm -f "$TMP_DMG"
+hdiutil convert "${TMP_DMG}.dmg" -format UDZO -imagekey zlib-level=9 -o "$ROOT_DIR/$DMG_NAME"
+rm -f "${TMP_DMG}.dmg"
 
 echo "  ✅ $DMG_NAME created"
 
