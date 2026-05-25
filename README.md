@@ -2,7 +2,7 @@
 
 **Global keyboard shortcuts for microphone and camera in Microsoft Teams, Slack, and Zoom — right from your Mac menu bar.**
 
-![MuteKey menu bar icon](AppIcon/32.png)
+![MuteKey app icon](AppIcon/icon.png)
 
 ---
 
