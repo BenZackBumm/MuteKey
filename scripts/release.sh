@@ -46,8 +46,7 @@ xcodebuild archive \
   -scheme "$SCHEME" \
   -configuration Release \
   -archivePath "$BUILD_DIR/MuteKey.xcarchive" \
-  CODE_SIGN_IDENTITY="Developer ID Application" \
-  DEVELOPMENT_TEAM="$TEAM_ID" \
+  -allowProvisioningUpdates \
   -quiet
 
 echo "  ✅ Archive created"
