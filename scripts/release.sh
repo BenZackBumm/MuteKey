@@ -29,7 +29,7 @@ cd "$ROOT_DIR"
 # Read version from Info.plist
 VERSION=$(defaults read "$ROOT_DIR/MuteKey/Info.plist" CFBundleShortVersionString)
 BUILD=$(defaults read "$ROOT_DIR/MuteKey/Info.plist" CFBundleVersion)
-ZIP_NAME="MuteKey-${VERSION}.zip"
+DMG_NAME="MuteKey-${VERSION}.dmg"
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo " MuteKey Release v${VERSION} (build ${BUILD})"
@@ -85,31 +85,33 @@ echo "▶ Step 4/6: Stapling..."
 xcrun stapler staple "$APP_PATH"
 echo "  ✅ Stapled"
 
-# ── 5. Create release ZIP ─────────────────────────────────────────────────────
+# ── 5. Create release DMG ─────────────────────────────────────────────────────
 echo ""
-echo "▶ Step 5/6: Creating release ZIP..."
-cd "$BUILD_DIR/export"
-ditto -c -k --keepParent "MuteKey.app" "$ZIP_NAME"
-mv "$ZIP_NAME" "$ROOT_DIR/$ZIP_NAME"
-cd "$ROOT_DIR"
-echo "  ✅ $ZIP_NAME created"
+echo "▶ Step 5/6: Creating release DMG..."
+hdiutil create \
+  -volname "MuteKey" \
+  -srcfolder "$APP_PATH" \
+  -ov \
+  -format UDZO \
+  "$ROOT_DIR/$DMG_NAME"
+echo "  ✅ $DMG_NAME created"
 
 # ── 6. Sparkle sign ───────────────────────────────────────────────────────────
 echo ""
 echo "▶ Step 6/6: Signing with Sparkle..."
-SIGN_OUTPUT=$(./scripts/sign_update.sh "$ZIP_NAME")
+SIGN_OUTPUT=$(./scripts/sign_update.sh "$DMG_NAME")
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo " ✅ Release v${VERSION} ready!"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-echo " ZIP:  $ZIP_NAME"
+echo " DMG:  $DMG_NAME"
 echo ""
 echo " Sparkle output (paste into appcast.xml):"
 echo "$SIGN_OUTPUT"
 echo ""
 echo " Next steps:"
-echo "  1. Upload $ZIP_NAME to GitHub Releases as tag v${VERSION}"
+echo "  1. Upload $DMG_NAME to GitHub Releases as tag v${VERSION}"
 echo "  2. Update appcast.xml in Gist with the values above"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
