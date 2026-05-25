@@ -22,8 +22,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { _, _ in }
-
         menuBarController = MenuBarController(
             meetingState: meetingState,
             teamsConnector: teamsConnector,
