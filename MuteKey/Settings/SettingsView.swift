@@ -255,8 +255,8 @@ struct AboutView: View {
                 HStack {
                     Text("GitHub")
                     Spacer()
-                    Link("BenZackBumm/ZackMute",
-                         destination: URL(string: "https://github.com/BenZackBumm/ZackMute")!)
+                    Link("BenZackBumm/MuteKey",
+                         destination: URL(string: "https://github.com/BenZackBumm/MuteKey")!)
                 }
             }
 
