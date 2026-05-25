@@ -7,8 +7,8 @@
 #   2. Exports with Developer ID (no notarization yet)
 #   3. Notarizes the app with Apple
 #   4. Staples the notarization ticket
-#   5. Creates a ZIP
-#   6. Signs the ZIP with Sparkle (edSignature)
+#   5. Creates a DMG with app + Applications symlink
+#   6. Signs the DMG with Sparkle (edSignature)
 #   7. Prints the values you need for appcast.xml
 
 set -e
@@ -88,12 +88,50 @@ echo "  ✅ Stapled"
 # ── 5. Create release DMG ─────────────────────────────────────────────────────
 echo ""
 echo "▶ Step 5/6: Creating release DMG..."
-hdiutil create \
-  -volname "MuteKey" \
-  -srcfolder "$APP_PATH" \
-  -ov \
-  -format UDZO \
-  "$ROOT_DIR/$DMG_NAME"
+
+TMP_DMG="/tmp/MuteKey-installer.dmg"
+VOLUME_NAME="MuteKey"
+
+# Create writable DMG
+hdiutil create -size 100m -volname "$VOLUME_NAME" -fs HFS+ -format UDRW -ov "$TMP_DMG"
+
+# Mount it
+MOUNT_DEV=$(hdiutil attach -readwrite -noverify -noautoopen "$TMP_DMG" | grep "^/dev/" | awk 'NR==1 {print $1}')
+MOUNT_POINT="/Volumes/$VOLUME_NAME"
+
+# Copy app and add Applications symlink
+cp -r "$APP_PATH" "$MOUNT_POINT/"
+ln -s /Applications "$MOUNT_POINT/Applications"
+
+# Customize window layout via AppleScript
+osascript <<APPLESCRIPT
+tell application "Finder"
+    tell disk "$VOLUME_NAME"
+        open
+        set current view of container window to icon view
+        set toolbar visible of container window to false
+        set statusbar visible of container window to false
+        set bounds of container window to {400, 100, 980, 540}
+        set theViewOptions to the icon view options of container window
+        set arrangement of theViewOptions to not arranged
+        set icon size of theViewOptions to 128
+        set position of item "MuteKey.app" of container window to {150, 200}
+        set position of item "Applications" of container window to {390, 200}
+        close
+        open
+        update without registering applications
+        delay 2
+    end tell
+end tell
+APPLESCRIPT
+
+# Detach and convert to compressed read-only DMG
+chmod -Rf go-w "$MOUNT_POINT"
+sync
+hdiutil detach "$MOUNT_DEV"
+hdiutil convert "$TMP_DMG" -format UDZO -imagekey zlib-level=9 -o "$ROOT_DIR/$DMG_NAME"
+rm -f "$TMP_DMG"
+
 echo "  ✅ $DMG_NAME created"
 
 # ── 6. Sparkle sign ───────────────────────────────────────────────────────────
