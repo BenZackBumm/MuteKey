@@ -39,7 +39,7 @@ MuteKey sits in your menu bar and lets you mute/unmute your microphone and toggl
 
 1. Download the latest `MuteKey.dmg` from the [Releases](https://github.com/BenZackBumm/MuteKey/releases) page
 2. Open the DMG and drag `MuteKey.app` to your `/Applications` folder
-3. Launch MuteKey — the setup wizard walks you through the rest
+3. Launch MuteKey
 
 ---
 
