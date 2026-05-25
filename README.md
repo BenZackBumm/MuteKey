@@ -99,4 +99,4 @@ Dependencies are resolved automatically via Swift Package Manager (KeyboardShort
 ## License
 
 MIT License — see [LICENSE](LICENSE) for details.  
-Copyright © 2025 Benjamin Krammer
+Copyright © 2026 Benjamin Krammer
