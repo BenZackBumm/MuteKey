@@ -4,12 +4,13 @@
 #
 # What it does:
 #   1. Archives MuteKey.xcodeproj with Xcode
-#   2. Exports with Developer ID (no notarization yet)
+#   2. Exports with Developer ID
 #   3. Notarizes the app with Apple
-#   4. Staples the notarization ticket
+#   4. Staples the notarization ticket to the app
 #   5. Creates a DMG with app + Applications symlink
-#   6. Signs the DMG with Sparkle (edSignature)
-#   7. Prints the values you need for appcast.xml
+#   6. Notarizes and staples the DMG itself
+#   7. Signs the DMG with Sparkle (edSignature)
+#   8. Prints the values you need for appcast.xml
 
 set -e
 
@@ -37,7 +38,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 
 # ── 1. Archive ────────────────────────────────────────────────────────────────
 echo ""
-echo "▶ Step 1/6: Archiving..."
+echo "▶ Step 1/7: Archiving..."
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
@@ -53,7 +54,7 @@ echo "  ✅ Archive created"
 
 # ── 2. Export ─────────────────────────────────────────────────────────────────
 echo ""
-echo "▶ Step 2/6: Exporting..."
+echo "▶ Step 2/7: Exporting..."
 xcodebuild -exportArchive \
   -archivePath "$BUILD_DIR/MuteKey.xcarchive" \
   -exportPath "$BUILD_DIR/export" \
@@ -65,7 +66,7 @@ echo "  ✅ App exported to $APP_PATH"
 
 # ── 3. Notarize ───────────────────────────────────────────────────────────────
 echo ""
-echo "▶ Step 3/6: Creating ZIP for notarization..."
+echo "▶ Step 3/7: Creating ZIP for notarization..."
 cd "$BUILD_DIR/export"
 ditto -c -k --keepParent "MuteKey.app" "MuteKey-notarize.zip"
 cd "$ROOT_DIR"
@@ -81,13 +82,13 @@ echo "  ✅ Notarized"
 
 # ── 4. Staple ─────────────────────────────────────────────────────────────────
 echo ""
-echo "▶ Step 4/6: Stapling..."
+echo "▶ Step 4/7: Stapling app..."
 xcrun stapler staple "$APP_PATH"
 echo "  ✅ Stapled"
 
 # ── 5. Create release DMG ─────────────────────────────────────────────────────
 echo ""
-echo "▶ Step 5/6: Creating release DMG..."
+echo "▶ Step 5/7: Creating release DMG..."
 
 TMP_DMG="/tmp/MuteKey-installer"
 VOLUME_NAME="MuteKey"
@@ -101,8 +102,8 @@ hdiutil create -size 100m -volname "$VOLUME_NAME" -fs HFS+ "$TMP_DMG"
 MOUNT_DEV=$(hdiutil attach -readwrite -noverify -noautoopen "${TMP_DMG}.dmg" | grep "^/dev/" | awk 'NR==1 {print $1}')
 MOUNT_POINT="/Volumes/$VOLUME_NAME"
 
-# Copy app and add Applications symlink
-cp -r "$APP_PATH" "$MOUNT_POINT/"
+# Copy app preserving all attributes and code signature (ditto, not cp -r)
+ditto "$APP_PATH" "$MOUNT_POINT/MuteKey.app"
 ln -s /Applications "$MOUNT_POINT/Applications"
 
 # Customize window layout via AppleScript
@@ -131,14 +132,29 @@ APPLESCRIPT
 chmod -Rf go-w "$MOUNT_POINT"
 sync
 hdiutil detach "$MOUNT_DEV"
+rm -f "$ROOT_DIR/$DMG_NAME"
 hdiutil convert "${TMP_DMG}.dmg" -format UDZO -imagekey zlib-level=9 -o "$ROOT_DIR/$DMG_NAME"
 rm -f "${TMP_DMG}.dmg"
 
 echo "  ✅ $DMG_NAME created"
 
-# ── 6. Sparkle sign ───────────────────────────────────────────────────────────
+# ── 6. Notarize + staple DMG ──────────────────────────────────────────────────
 echo ""
-echo "▶ Step 6/6: Signing with Sparkle..."
+echo "▶ Step 6/7: Notarizing DMG..."
+xcrun notarytool submit "$ROOT_DIR/$DMG_NAME" \
+  --apple-id "$APPLE_ID" \
+  --team-id "$TEAM_ID" \
+  --keychain-profile "notarytool-mutekey" \
+  --wait
+echo "  ✅ DMG notarized"
+
+echo "  Stapling DMG..."
+xcrun stapler staple "$ROOT_DIR/$DMG_NAME"
+echo "  ✅ DMG stapled"
+
+# ── 7. Sparkle sign ───────────────────────────────────────────────────────────
+echo ""
+echo "▶ Step 7/7: Signing with Sparkle..."
 SIGN_OUTPUT=$(./scripts/sign_update.sh "$DMG_NAME")
 
 echo ""
