@@ -3,7 +3,7 @@ import KeyboardShortcuts
 import ServiceManagement
 
 private enum WizardStep {
-    case welcome, accessibility, shortcuts, teamsSetup, launchAtLogin, done
+    case welcome, accessibility, shortcuts, teamsSetup, launchAtLogin
 }
 
 struct WizardView: View {
@@ -17,7 +17,7 @@ struct WizardView: View {
     private var steps: [WizardStep] {
         var s: [WizardStep] = [.welcome, .accessibility, .shortcuts]
         if isTeamsInstalled { s.append(.teamsSetup) }
-        s.append(contentsOf: [.launchAtLogin, .done])
+        s.append(.launchAtLogin)
         return s
     }
 
@@ -30,7 +30,6 @@ struct WizardView: View {
                 case .shortcuts:     ShortcutsStepView()
                 case .teamsSetup:    TeamsSetupStepView()
                 case .launchAtLogin: LaunchAtLoginStepView()
-                case .done:          DoneStepView()
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -55,7 +54,8 @@ struct WizardView: View {
                     }
                 }
                 .buttonStyle(.borderedProminent)
-                .keyboardShortcut(.defaultAction)
+                .keyboardShortcut(.return)
+                .focusEffectDisabled()
             }
             .padding(20)
         }
@@ -226,20 +226,3 @@ private struct LaunchAtLoginStepView: View {
     }
 }
 
-// MARK: - Done
-
-private struct DoneStepView: View {
-    var body: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 64))
-                .foregroundStyle(.green)
-            Text("wizard.done.title")
-                .font(.title2).bold()
-            Text("wizard.done.description")
-                .multilineTextAlignment(.center)
-                .foregroundStyle(.secondary)
-        }
-        .padding(40)
-    }
-}
