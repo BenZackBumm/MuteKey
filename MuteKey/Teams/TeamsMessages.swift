@@ -40,4 +40,7 @@ extension TeamsCommand {
     static func toggleMute(requestId: Int) -> TeamsCommand {
         TeamsCommand(action: "toggle-mute", parameters: [:], requestId: requestId)
     }
+    static func toggleHand(requestId: Int) -> TeamsCommand {
+        TeamsCommand(action: "toggle-hand", parameters: [:], requestId: requestId)
+    }
 }

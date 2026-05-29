@@ -5,6 +5,8 @@
 "menu.camera.off" = "Webcam aus";
 "menu.camera.on" = "Webcam an";
 "menu.camera.toggle" = "Webcam umschalten";
+"menu.raise_hand" = "Hand heben";
+"menu.lower_hand" = "Hand senken";
 "menu.settings" = "Einstellungen…";
 "menu.quit" = "MuteKey beenden";
 "menu.accessibility.request" = "⚠️ Bedienungshilfen erlauben…";
@@ -28,6 +30,7 @@
 "settings.section.shortcuts" = "Tastaturkürzel";
 "settings.shortcut.mic" = "Mikrofon";
 "settings.shortcut.camera" = "Webcam";
+"settings.shortcut.raise_hand" = "Hand heben (MS Teams)";
 "settings.section.permissions" = "Berechtigungen";
 "settings.accessibility.granted" = "Bedienungshilfen: Erlaubt";
 "settings.accessibility.denied" = "Bedienungshilfen: Nicht erlaubt";

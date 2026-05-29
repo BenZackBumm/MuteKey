@@ -12,6 +12,7 @@ final class MenuBarController {
     private var actionSeparator: NSMenuItem?
     private var muteMenuItem: NSMenuItem?
     private var cameraMenuItem: NSMenuItem?
+    private var raiseHandMenuItem: NSMenuItem?
     private var accessibilityMenuItem: NSMenuItem?
 
     private let updateController: UpdateController
@@ -61,6 +62,17 @@ final class MenuBarController {
         cameraItem.image = menuIcon("video.fill")
         menu.addItem(cameraItem)
         self.cameraMenuItem = cameraItem
+
+        let raiseHandItem = NSMenuItem(
+            title: String(localized: "menu.raise_hand"),
+            action: #selector(raiseHand),
+            keyEquivalent: ""
+        )
+        raiseHandItem.target = self
+        raiseHandItem.image = menuIcon("hand.raised.fill")
+        raiseHandItem.isHidden = true
+        menu.addItem(raiseHandItem)
+        self.raiseHandMenuItem = raiseHandItem
 
         menu.addItem(.separator())
 
@@ -125,8 +137,18 @@ final class MenuBarController {
         actionSeparator?.isHidden = !isInCall
         muteMenuItem?.isHidden    = !isInCall
         cameraMenuItem?.isHidden  = !isInCall
+        raiseHandMenuItem?.isHidden = !meetingState.isInMeeting
 
         guard isInCall else { return }
+
+        // Raise Hand (Teams only)
+        if meetingState.isInMeeting {
+            raiseHandMenuItem?.title = meetingState.isHandRaised
+                ? String(localized: "menu.lower_hand")
+                : String(localized: "menu.raise_hand")
+            raiseHandMenuItem?.image = menuIcon(meetingState.isHandRaised ? "hand.raised.slash.fill" : "hand.raised.fill")
+            applyShortcut(.raiseHand, to: raiseHandMenuItem)
+        }
 
         // Mic: always enabled when any call is active.
         // Show on/off only when we know the real state (Enterprise Teams or Zoom solo).
@@ -219,12 +241,14 @@ final class MenuBarController {
             // Enterprise Teams: real mic/camera status via WebSocket
             let isMuted    = meetingState.isMuted
             let isCameraOn = meetingState.isCameraOn
-            button.image = pillPair(
+            var img = pillPair(
                 leftSymbol:  isMuted    ? "mic.slash.fill" : "mic.fill",
                 leftColor:   isMuted    ? .systemRed       : .systemGreen,
                 rightSymbol: isCameraOn ? "video.fill"     : "video.slash.fill",
                 rightColor:  isCameraOn ? .systemGreen     : .systemRed
             )
+            if meetingState.isHandRaised { img = withRaisedHandEmoji(img) }
+            button.image = img
         } else if hasZoomStatus {
             // Zoom solo: real mic/camera status via AX-Tree
             let isMuted    = meetingState.isZoomMuted
@@ -361,6 +385,29 @@ final class MenuBarController {
         white.draw(in: iconRect)
     }
 
+    /// Composites a ✋ emoji 4 px to the left of the given pill image.
+    private func withRaisedHandEmoji(_ pill: NSImage) -> NSImage {
+        let emoji  = "✋" as NSString
+        let attrs: [NSAttributedString.Key: Any] = [
+            .font: NSFont.systemFont(ofSize: 15)
+        ]
+        let emojiSize = emoji.size(withAttributes: attrs)
+        let gap: CGFloat  = 4
+        let totalW = emojiSize.width + gap + pill.size.width
+        let height = max(pill.size.height, emojiSize.height)
+
+        let result = NSImage(size: NSSize(width: totalW, height: height), flipped: false) { _ in
+            let emojiY = (height - emojiSize.height) / 2
+            emoji.draw(at: CGPoint(x: 0, y: emojiY), withAttributes: attrs)
+            let pillX = emojiSize.width + gap
+            let pillY = (height - pill.size.height) / 2
+            pill.draw(in: CGRect(x: pillX, y: pillY, width: pill.size.width, height: pill.size.height))
+            return true
+        }
+        result.isTemplate = false
+        return result
+    }
+
     @objc private func showMultipleCallsInfo() {
         let alert = NSAlert()
         alert.messageText = String(localized: "alert.multiple_calls.title")
@@ -376,6 +423,10 @@ final class MenuBarController {
 
     @objc private func toggleCamera() {
         HotkeyManager.performToggleCamera(teamsConnector: teamsConnector, meetingState: meetingState)
+    }
+
+    @objc private func raiseHand() {
+        HotkeyManager.performRaiseHand(teamsConnector: teamsConnector, meetingState: meetingState)
     }
 
     @objc private func requestAccessibility() {

@@ -3,6 +3,17 @@ import CoreGraphics
 
 enum TeamsMuteAction {
     @MainActor
+    static func toggleHand() {
+        guard AXIsProcessTrusted() else { requestAccessibility(); return }
+        guard let teams = findTeams() else { return }
+        // Ctrl+Shift+K toggles raised hand in Teams
+        sendKey(0x28, flags: [.maskControl, .maskShift], to: teams.processIdentifier)
+        #if DEBUG
+        print("[MuteKey] Ctrl+Shift+K sent to Teams pid \(teams.processIdentifier)")
+        #endif
+    }
+
+    @MainActor
     static func toggleCamera() {
         guard AXIsProcessTrusted() else { requestAccessibility(); return }
         guard let teams = findTeams() else {

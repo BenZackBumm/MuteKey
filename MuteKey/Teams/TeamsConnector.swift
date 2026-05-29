@@ -50,6 +50,17 @@ final class TeamsConnector: ObservableObject {
         }
     }
 
+    func raiseHand() {
+        if state.canToggleMute {
+            // Enterprise Teams: WebSocket command
+            send(TeamsCommand.toggleHand(requestId: nextRequestId()))
+        } else {
+            // Personal Teams / fallback: Ctrl+Shift+K keyboard injection + optimistic state
+            TeamsMuteAction.toggleHand()
+            state.isHandRaised.toggle()
+        }
+    }
+
     func clearToken() {
         deleteToken()
         webSocketTask?.cancel(with: .goingAway, reason: nil)
@@ -57,6 +68,7 @@ final class TeamsConnector: ObservableObject {
         state.isConnectedToTeams = false
         state.isInMeeting = false
         state.isMuted = false
+        state.isHandRaised = false
         state.canToggleMute = false
         state.canToggleVideo = false
         // Keep reconnecting so Teams can send a new token on next meeting start
@@ -137,6 +149,7 @@ final class TeamsConnector: ObservableObject {
                     if let inMeeting = ms.isInMeeting { state.isInMeeting = inMeeting }
                     if let muted = ms.isMuted { state.isMuted = muted }
                     if let videoOn = ms.isVideoOn { state.isCameraOn = videoOn }
+                    if let handRaised = ms.isHandRaised { state.isHandRaised = handRaised }
                     #if DEBUG
                     print("[MuteKey] State: inMeeting=\(ms.isInMeeting as Any) isMuted=\(ms.isMuted as Any) videoOn=\(ms.isVideoOn as Any)")
                     #endif
@@ -187,6 +200,7 @@ final class TeamsConnector: ObservableObject {
             state.isInMeeting = false
             state.isMuted = false
             state.isCameraOn = false
+            state.isHandRaised = false
         }
 
         guard shouldReconnect else { return }

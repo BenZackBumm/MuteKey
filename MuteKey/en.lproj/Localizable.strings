@@ -5,6 +5,8 @@
 "menu.camera.off" = "Turn Off Camera";
 "menu.camera.on" = "Turn On Camera";
 "menu.camera.toggle" = "Toggle Camera";
+"menu.raise_hand" = "Raise Hand";
+"menu.lower_hand" = "Lower Hand";
 "menu.settings" = "Settings…";
 "menu.quit" = "Quit MuteKey";
 "menu.accessibility.request" = "⚠️ Allow Accessibility…";
@@ -28,6 +30,7 @@
 "settings.section.shortcuts" = "Keyboard Shortcuts";
 "settings.shortcut.mic" = "Microphone";
 "settings.shortcut.camera" = "Camera";
+"settings.shortcut.raise_hand" = "Raise Hand (MS Teams)";
 "settings.section.permissions" = "Permissions";
 "settings.accessibility.granted" = "Accessibility: Allowed";
 "settings.accessibility.denied" = "Accessibility: Not Allowed";

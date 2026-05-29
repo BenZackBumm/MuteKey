@@ -4,6 +4,7 @@ import UserNotifications
 extension KeyboardShortcuts.Name {
     static let toggleMute   = Self("toggleMute",   default: .init(.f19))
     static let toggleCamera = Self("toggleCamera", default: .init(.f16))
+    static let raiseHand    = Self("raiseHand",    default: .init(.f18))
 }
 
 enum HotkeyManager {
@@ -16,6 +17,11 @@ enum HotkeyManager {
         KeyboardShortcuts.onKeyDown(for: .toggleCamera) {
             Task { @MainActor in
                 performToggleCamera(teamsConnector: teamsConnector, meetingState: meetingState)
+            }
+        }
+        KeyboardShortcuts.onKeyDown(for: .raiseHand) {
+            Task { @MainActor in
+                performRaiseHand(teamsConnector: teamsConnector, meetingState: meetingState)
             }
         }
     }
@@ -69,18 +75,25 @@ enum HotkeyManager {
         }
     }
 
+    @MainActor
+    static func performRaiseHand(teamsConnector: TeamsConnector, meetingState: MeetingState) {
+        guard meetingState.isInMeeting else { return }
+        teamsConnector.raiseHand()
+    }
+
     private static func notifySlackCameraUnsupported() {
-        let content = UNMutableNotificationContent()
-        content.title = "MuteKey"
-        content.body = String(localized: "notification.slack_camera_unsupported")
-        let request = UNNotificationRequest(
-            identifier: "slack-camera-unsupported",
-            content: content,
-            trigger: nil
-        )
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { granted, _ in
-            guard granted else { return }
-            UNUserNotificationCenter.current().add(request)
+        Task {
+            let center = UNUserNotificationCenter.current()
+            guard (try? await center.requestAuthorization(options: [.alert])) == true else { return }
+            let content = UNMutableNotificationContent()
+            content.title = "MuteKey"
+            content.body = String(localized: "notification.slack_camera_unsupported")
+            let request = UNNotificationRequest(
+                identifier: "slack-camera-unsupported",
+                content: content,
+                trigger: nil
+            )
+            try? await center.add(request)
         }
     }
 }

@@ -47,6 +47,12 @@ struct SettingsView: View {
                         Spacer()
                         KeyboardShortcuts.Recorder("", name: .toggleCamera)
                     }
+                    HStack {
+                        Image(systemName: "hand.raised.fill").frame(width: 16)
+                        Text("settings.shortcut.raise_hand")
+                        Spacer()
+                        KeyboardShortcuts.Recorder("", name: .raiseHand)
+                    }
                 }
             }
 
