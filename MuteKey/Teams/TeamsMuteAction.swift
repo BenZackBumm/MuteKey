@@ -6,10 +6,10 @@ enum TeamsMuteAction {
     static func toggleHand() {
         guard AXIsProcessTrusted() else { requestAccessibility(); return }
         guard let teams = findTeams() else { return }
-        // Ctrl+Shift+K toggles raised hand in Teams
-        sendKey(0x28, flags: [.maskControl, .maskShift], to: teams.processIdentifier)
+        // Cmd+Shift+K toggles raised hand in Teams
+        sendKey(0x28, flags: [.maskCommand, .maskShift], to: teams.processIdentifier)
         #if DEBUG
-        print("[MuteKey] Ctrl+Shift+K sent to Teams pid \(teams.processIdentifier)")
+        print("[MuteKey] Cmd+Shift+K sent to Teams pid \(teams.processIdentifier)")
         #endif
     }
 
